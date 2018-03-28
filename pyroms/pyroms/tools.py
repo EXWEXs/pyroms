@@ -1,8 +1,8 @@
 # encoding: utf-8
 
 import numpy as np
-import _iso
-import _obs_interp
+from pyroms import _iso
+from pyroms import _obs_interp
 
 import pyroms
 

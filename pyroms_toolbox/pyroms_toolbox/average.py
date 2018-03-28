@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-import _average
+from pyroms_toolbox import _average
 import types
 import pyroms
 import numpy as np

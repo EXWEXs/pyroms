@@ -5,7 +5,7 @@ import pyroms
 import pyroms_toolbox
 
 
-def TS_diagram(temp, salt, depth=None, dens_lev=None, marker_size=2, fmt='%2.2f', pal=cm.spectral, \
+def TS_diagram(temp, salt, depth=None, dens_lev=None, marker_size=2, fmt='%2.2f', pal=cm.Spectral, \
                tlim='None', slim='None', outfile=None):
 
     if dens_lev is None:

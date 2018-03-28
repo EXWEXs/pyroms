@@ -1,15 +1,15 @@
 #!/bin/sh
 
 #DESTDIR=/usr/local
-DESTDIR=$HOME/python
+DESTDIR=$CONDA_PREFIX
 PYROMS_PATH=$DESTDIR/lib/python3.6/site-packages/pyroms
 CURDIR=`pwd`
 
 echo
 echo "installing pyroms..."
 echo
-python setup.py build --fcompiler=gnu95;
-python setup.py install --prefix=$DESTDIR
+python setup.py build #--fcompiler=gnu95;
+python setup.py install #--prefix=$DESTDIR
 echo "installing external libraries..."
 echo "installing gridgen..."
 cd $CURDIR/external/nn
@@ -38,7 +38,7 @@ perl -pe "s#\/usr\/local#$DESTDIR#" makefile > makefile2
 make -f makefile2
 make -f makefile2 f2py
 make -f makefile2 install
-+# Write it this way for Darwin...
+# Write it this way for Darwin...
 cp -r scrip*.so* $PYROMS_PATH
 cd $CURDIR
 echo
