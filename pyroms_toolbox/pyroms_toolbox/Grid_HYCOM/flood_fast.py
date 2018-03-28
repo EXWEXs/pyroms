@@ -6,7 +6,7 @@ from pyroms import _remapping_fast
 import pyroms
 
 #RD:
-import creep
+from pyroms_toolbox import creep
 
 def flood_fast(varz, grd, pos='t', irange=None, jrange=None, \
           spval=1.2676506e+30, dxy=5, cdepth=0, kk=0):
