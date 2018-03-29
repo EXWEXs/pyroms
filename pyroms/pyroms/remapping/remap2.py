@@ -103,7 +103,7 @@ def remap2(src_array, remap_file, src_grad1=None, src_grad2=None, \
         dst_array = np.zeros((nlev, dst_grid_dims[1], dst_grid_dims[0]))
 
         # loop over vertical level
-        for k in range(nlev):
+        for k in list(range(nlev)):
 
             tmp_src_array = src_array[k,:,:].flatten()
             tmp_dst_array = np.zeros((dst_grid_size))

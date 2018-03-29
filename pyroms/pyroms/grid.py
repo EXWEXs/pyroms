@@ -89,12 +89,12 @@ class ROMS_gridinfo(object):
             s = line.split()
             if s[0] == 'id':
                 if s[2] == self.id:
-                    for l in range(line_nb, line_nb+5):
+                    for l in list(range(line_nb, line_nb+5)):
                         s = lines[l].split()
                         info.append(s[2])
                         line_nb = line_nb + 1
                     if info[4] == 'roms':
-                        for l in range(line_nb, line_nb+4):
+                        for l in list(range(line_nb, line_nb+4)):
                             s = lines[l].split()
                             info.append(s[2])
                     if info[4] == 'z':
@@ -122,7 +122,7 @@ class ROMS_gridinfo(object):
         elif info[4] == 'z':
             nline = len(info)
             dep = info[5]
-            for line in range(6,nline):
+            for line in list(range(6,nline)):
                 dep = dep + info[line]
             dep = np.array(dep, dtype=np.float)
 
@@ -546,9 +546,10 @@ def write_ROMS_grid(grd, filename='roms_grd.nc'):
         write_nc_var(grd.vgrid.s_w, 's_w', ('s_w'), 'S-coordinate at W-points')
         write_nc_var(grd.vgrid.Cs_r, 'Cs_r', ('s_rho'), 'S-coordinate stretching curves at RHO-points')
         write_nc_var(grd.vgrid.Cs_w, 'Cs_w', ('s_w'), 'S-coordinate stretching curves at W-points')
-
+ 
     write_nc_var(grd.vgrid.h, 'h', ('eta_rho', 'xi_rho'), 'bathymetry at RHO-points', 'meter')
     #ensure that we have a bath dependancy for hraw
+    print(grd.vgrid.hraw)
     if len(grd.vgrid.hraw.shape) == 2:
         hraw = np.zeros((1, grd.vgrid.hraw.shape[0], grd.vgrid.hraw.shape[1]))
         hraw[0,:] = grd.vgrid.hraw

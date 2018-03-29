@@ -63,7 +63,7 @@ class NetCDFFile(object):
 
         self.dimensions = {}
         self._dims = []
-        for dim in range(count):
+        for dim in list(range(count)):
             name = self._read_string()
             length = self._unpack_int()
             if length == 0: length = None # record dimension
@@ -84,7 +84,7 @@ class NetCDFFile(object):
 
         # Read attributes.
         attributes = {}
-        for attribute in range(count):
+        for attribute in list(range(count)):
             name = self._read_string()
             nc_type = self._unpack_int()
             n = self._unpack_int()
@@ -104,7 +104,7 @@ class NetCDFFile(object):
         # Read variables.
         self.variables = {}
         count = self._unpack_int()
-        for variable in range(count):
+        for variable in list(range(count)):
             name = self._read_string()
             self.variables[name] = self._read_var()
 
@@ -114,11 +114,11 @@ class NetCDFFile(object):
         
         recsize = 0
         count = self._unpack_int()
-        for variable in range(count):
+        for variable in list(range(count)):
             name = self._read_string()
             n = self._unpack_int()
             isrec = False
-            for i in range(n):
+            for i in list(range(n)):
                 dimid = self._unpack_int()
                 name = self._dims[dimid]
                 dim = self.dimensions[name]
@@ -139,7 +139,7 @@ class NetCDFFile(object):
         shape = []
         n = self._unpack_int()
         isrec = False
-        for i in range(n):
+        for i in list(range(n)):
             dimid = self._unpack_int()
             name = self._dims[dimid]
             dimensions.append(name)
@@ -219,7 +219,7 @@ class NetCDFVariable(object):
             # need to create a separate array for each record.
             self.__array_data__ = zeros(shape, dtype)
             bytes += (shape[0] - 1) * recsize
-            for n in range(shape[0]):
+            for n in list(range(shape[0])):
                 offset = self._begin + (n * recsize)
                 mm = mmap.mmap(fileno, bytes, access=mmap.ACCESS_READ)
                 self.__array_data__[n] = ndarray.__new__(ndarray, shape[1:], dtype=dtype, buffer=mm, offset=offset, order=0)

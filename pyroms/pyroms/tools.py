@@ -624,7 +624,7 @@ def isoslice(var,prop,isoval, grd, Cpos='rho', masking=True, vert=False):
     if masking:
         isoslice = np.ma.masked_where(zc.sum(axis=0)==0, isoslice)
         if all(isoslice.mask):
-            raise Warning('property==%f out of range (%f, %f)' % \
+            raise Warning('property==%f out of list(range (%f, %f)' % \
                            (isoval, (prop+isoval).min(), (prop+isoval).max()))
     isoslice = isoslice.reshape(sz[1:])
 
@@ -768,7 +768,7 @@ def transect(var, istart, iend, jstart, jend, grd, Cpos='rho', vert=False, \
         # compute the nearest j point on the line crossing at i
         n=0
         near = np.zeros(((i1-i0+1),4))
-        for i in range(i0,i1+1):
+        for i in list(range(i0,i1+1)):
             jj = aj*i + bj
             near[n,0] = i
             near[n,1] = jj
@@ -783,7 +783,7 @@ def transect(var, istart, iend, jstart, jend, grd, Cpos='rho', vert=False, \
             # compute the nearest j vert point on the line crossing at i
             n=0
             nearp = np.zeros(((i1-i0+2),4))
-            for i in range(i0,i1+2):
+            for i in list(range(i0,i1+2)):
                 jj = aj*(i-0.5) + bj
                 nearp[n,0] = i
                 nearp[n,1] = jj
@@ -803,7 +803,7 @@ def transect(var, istart, iend, jstart, jend, grd, Cpos='rho', vert=False, \
         # compute the nearest i point on the line crossing at j
         n=0
         near = np.zeros(((j1-j0+1),4))
-        for j in range(j0,j1+1):
+        for j in list(range(j0,j1+1)):
             ii = ai*j + bi
             near[n,0] = j
             near[n,1] = ii
@@ -818,7 +818,7 @@ def transect(var, istart, iend, jstart, jend, grd, Cpos='rho', vert=False, \
             # compute the nearest i vert point on the line crossing at j
             n=0
             nearp = np.zeros(((j1-j0+2),4))
-            for j in range(j0,j1+2):
+            for j in list(range(j0,j1+2)):
                 ii = ai*(j-0.5) + bi
                 nearp[n,0] = j
                 nearp[n,1] = ii
@@ -838,10 +838,10 @@ def transect(var, istart, iend, jstart, jend, grd, Cpos='rho', vert=False, \
     ys = np.zeros((nlev, nearp.shape[0]))
 
     # mask variable
-    for k in range(var.shape[0]):
+    for k in list(range(var.shape[0])):
         var[k,:,:] = np.ma.masked_where(mask == 0, var[k,:,:])
 
-    for n in range(near.shape[0]):
+    for n in list(range(near.shape[0])):
         if (abs(aj) <=  1 ):
             # check if our position match a grid cell
             if (near[n,2] == near[n,3]):
@@ -863,7 +863,7 @@ def transect(var, istart, iend, jstart, jend, grd, Cpos='rho', vert=False, \
                     transect[:,n] = (near[n,1] - near[n,2]) * var[:, near[n,0], near[n,3]] + \
                                    (near[n,3] - near[n,1]) * var[:, near[n,0], near[n,2]]
 
-    for n in range(nearp.shape[0]):
+    for n in list(range(nearp.shape[0])):
         if (abs(aj) <=  1 ):
             # check if our position match a grid cell
             if (nearp[n,2] == nearp[n,3]):
@@ -943,7 +943,7 @@ def lonslice(var, longitude, grd, Cpos='rho', vert=False, spval=1e37):
                            list(range(1,lon[::-1,0].shape[0]-1))[::-1]))
 
     d = np.zeros(edge.shape)
-    for i in range (edge.shape[0]):
+    for i in list(range (edge.shape[0])):
         d[i] = edge[i] - longitude
         d[i] = d[i] / abs(d[i])
     d = np.diff(d)
@@ -1046,7 +1046,7 @@ def latslice(var, latitude, grd, Cpos='rho', vert=False, spval=1e37):
                            list(range(1,lat[::-1,0].shape[0]-1))[::-1]))
 
     d = np.zeros(edge.shape)
-    for i in range (edge.shape[0]):
+    for i in list(range (edge.shape[0])):
         d[i] = edge[i] - latitude
         d[i] = d[i] / abs(d[i])
     d = np.diff(d)
@@ -1181,8 +1181,8 @@ def zlayer(var, grd, h1=None, h2=None, Cpos='rho', vert=False):
     zlayer = np.zeros((var.shape[1], var.shape[2]))
     dz = z[1:,:,:] - z[:-1,:,:]
 
-    for jj in range(var.shape[1]):
-        for ji in range(var.shape[2]):
+    for jj in list(range(var.shape[1])):
+        for ji in list(range(var.shape[2])):
             ratio = np.ones(var.shape[0])
             if h1 is not None:
                 if np.abs(h1) < np.abs(z[0,jj,ji]):
@@ -1266,7 +1266,7 @@ def section_transport(u, v, grd, istart, iend, jstart, jend):
 
         near = []
         # compute the nearest j point on the line crossing at i
-        for i in range(i0,i1+1):
+        for i in list(range(i0,i1+1)):
             j = aj*i + bj
             near.append(i + round(j)*1j)
 
@@ -1291,7 +1291,7 @@ def section_transport(u, v, grd, istart, iend, jstart, jend):
 
         near = []
         # compute the nearest i point on the line crossing at j
-        for j in range(j0,j1+1):
+        for j in list(range(j0,j1+1)):
             i = ai*j + bi
             near.append(round(i) + j*1j)
 
@@ -1304,7 +1304,7 @@ def section_transport(u, v, grd, istart, iend, jstart, jend):
     n = len(near)
     nn=1
 
-    for k in range(1,n):
+    for k in list(range(1,n)):
         # distance between 2 neighbour points
         d = abs(inear[k] - inear[k-1])
 
@@ -1332,7 +1332,7 @@ def section_transport(u, v, grd, istart, iend, jstart, jend):
     dzv = zv[1:,:,:] - zv[:-1,:,:]
 
     #set u and v to zero where u and v are masked for the sum
-    for k in range(u.shape[0]):
+    for k in list(range(u.shape[0])):
         u[k,:] = np.where(grd.hgrid.mask_u == 1, u[k,:], 0)
         v[k,:] = np.where(grd.hgrid.mask_v == 1, v[k,:], 0)
 
@@ -1340,9 +1340,9 @@ def section_transport(u, v, grd, istart, iend, jstart, jend):
     transpu = 0
     transpv = 0
 
-    for l in range(0,n-1):
+    for l in list(range(0,n-1)):
         ii = int(np.real(near[l])); jj = int(np.imag(near[l]))
-        for k in range(0, dzu.shape[0]):
+        for k in list(range(0, dzu.shape[0])):
             if np.real(near[l]) == np.real(near[l+1]):
                 trans = u[k, jj+jst, ii] * dy[jj+jst, ii] * \
                         dzu[k, jj+jst, ii] * norm_u * norm
@@ -1414,7 +1414,7 @@ def section_transport_z(u, v, grd, istart, iend, jstart, jend, h1=None, h2=None)
 
         near = []
         # compute the nearest j point on the line crossing at i
-        for i in range(i0,i1+1):
+        for i in list(range(i0,i1+1)):
             j = aj*i + bj
             near.append(i + round(j)*1j)
 
@@ -1439,7 +1439,7 @@ def section_transport_z(u, v, grd, istart, iend, jstart, jend, h1=None, h2=None)
 
         near = []
         # compute the nearest i point on the line crossing at j
-        for j in range(j0,j1+1):
+        for j in list(range(j0,j1+1)):
             i = ai*j + bi
             near.append(round(i) + j*1j)
 
@@ -1452,7 +1452,7 @@ def section_transport_z(u, v, grd, istart, iend, jstart, jend, h1=None, h2=None)
     n = len(near)
     nn=1
 
-    for k in range(1,n):
+    for k in list(range(1,n)):
         # distance between 2 neighbour points
         d = abs(inear[k] - inear[k-1])
 
@@ -1480,7 +1480,7 @@ def section_transport_z(u, v, grd, istart, iend, jstart, jend, h1=None, h2=None)
     dzv = zv[1:,:,:] - zv[:-1,:,:]
 
     #set u and v to zero where u and v are masked for the sum
-    for k in range(u.shape[0]):
+    for k in list(range(u.shape[0])):
         u[k,:] = np.where(grd.hgrid.mask_u == 1, u[k,:], 0)
         v[k,:] = np.where(grd.hgrid.mask_v == 1, v[k,:], 0)
 
@@ -1488,7 +1488,7 @@ def section_transport_z(u, v, grd, istart, iend, jstart, jend, h1=None, h2=None)
     transpu = 0
     transpv = 0
 
-    for l in range(0,n-1):
+    for l in list(range(0,n-1)):
 
         ii = int(np.real(near[l])); jj = int(np.imag(near[l]))
 
@@ -1526,7 +1526,7 @@ def section_transport_z(u, v, grd, istart, iend, jstart, jend, h1=None, h2=None)
                 ratio[:idx2] = 0.
                 ratio[idx2] = r
 
-        for k in range(0, dzu.shape[0]):
+        for k in list(range(0, dzu.shape[0])):
             transu = vel[k] * ds * dz[k] * norm_su * ratio[k]
             transv = vel[k] * ds * dz[k] * norm_sv * ratio[k]
             transpu = transpu + transu
@@ -1592,7 +1592,7 @@ def section_tracer_transport_z(u, v, tracer, grd, istart, iend, jstart, jend, h1
 
         near = []
         # compute the nearest j point on the line crossing at i
-        for i in range(i0,i1+1):
+        for i in list(range(i0,i1+1)):
             j = aj*i + bj
             near.append(i + round(j)*1j)
 
@@ -1617,7 +1617,7 @@ def section_tracer_transport_z(u, v, tracer, grd, istart, iend, jstart, jend, h1
 
         near = []
         # compute the nearest i point on the line crossing at j
-        for j in range(j0,j1+1):
+        for j in list(range(j0,j1+1)):
             i = ai*j + bi
             near.append(round(i) + j*1j)
 
@@ -1630,7 +1630,7 @@ def section_tracer_transport_z(u, v, tracer, grd, istart, iend, jstart, jend, h1
     n = len(near)
     nn=1
 
-    for k in range(1,n):
+    for k in list(range(1,n)):
         # distance between 2 neighbour points
         d = abs(inear[k] - inear[k-1])
 
@@ -1662,7 +1662,7 @@ def section_tracer_transport_z(u, v, tracer, grd, istart, iend, jstart, jend, h1
     trav = 0.5 * (tracer[:,1:,:] + tracer[:,:-1,:])
 
     #set u and v to zero where u and v are masked for the sum
-    for k in range(u.shape[0]):
+    for k in list(range(u.shape[0])):
         u[k,:] = np.where(grd.hgrid.mask_u == 1, u[k,:], 0)
         v[k,:] = np.where(grd.hgrid.mask_v == 1, v[k,:], 0)
         trau[k,:] = np.where(grd.hgrid.mask_u == 1, trau[k,:], 0)
@@ -1672,7 +1672,7 @@ def section_tracer_transport_z(u, v, tracer, grd, istart, iend, jstart, jend, h1
     transpu = 0
     transpv = 0
 
-    for l in range(0,n-1):
+    for l in list(range(0,n-1)):
 
         ii = int(np.real(near[l])); jj = int(np.imag(near[l]))
 
@@ -1712,7 +1712,7 @@ def section_tracer_transport_z(u, v, tracer, grd, istart, iend, jstart, jend, h1
                 ratio[:idx2] = 0.
                 ratio[idx2] = r
 
-        for k in range(0, dzu.shape[0]):
+        for k in list(range(0, dzu.shape[0])):
             transu = vel[k] * tra[k] * ds * dz[k] * norm_su * ratio[k]
             transv = vel[k] * tra[k] * ds * dz[k] * norm_sv * ratio[k]
             transpu = transpu + transu

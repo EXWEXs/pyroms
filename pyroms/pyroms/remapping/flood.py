@@ -90,7 +90,7 @@ def flood(varz, grdz, Cpos='rho', irange=None, jrange=None, \
         msk[idx] = 1
     else:
         msk = mask.copy()
-    for k in range(nlev-1):
+    for k in list(range(nlev-1)):
         c1 = np.array(msk, dtype=bool)
         c2 = np.isnan(varz[k,:,:]) == 1
         if kk == 0:
@@ -115,8 +115,8 @@ def flood(varz, grdz, Cpos='rho', irange=None, jrange=None, \
     varz[idx] = spval
     bottom = pyroms.utility.get_bottom(varz, mask, spval=spval)
     surface = pyroms.utility.get_surface(varz, mask, spval=spval)
-    for i in range(Lm):
-        for j in range(Mm):
+    for i in list(range(Lm)):
+        for j in list(range(Mm)):
             if mask[j,i] == 1:
                 varz[:bottom[j,i],j,i] = varz[bottom[j,i],j,i]
                 varz[surface[j,i]:,j,i] = varz[surface[j,i],j,i]

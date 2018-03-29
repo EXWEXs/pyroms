@@ -65,7 +65,7 @@ def sta2z(var, grd, grdz, Cpos='rho', srange=None, \
 
     varz = np.zeros((nlev, srange[1]-srange[0], 1))
 
-    for k in range(nlev):
+    for k in list(range(nlev)):
         varz[k,:] = _interp.xhslice(var, \
                         z[:, srange[0]:srange[1], :], \
                         depth[k, srange[0]:srange[1], :], \
