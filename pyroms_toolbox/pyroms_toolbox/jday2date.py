@@ -20,7 +20,7 @@ def jday2date(jday):
 
     jd0 = 2415021 #days since 1900/01/01
 
-    for t in list(range(nt)):
+    for t in range(nt):
         j = int(np.floor(jday[t])) + 32044 + jd0
         g = j // 146097
         dg = j % 146097

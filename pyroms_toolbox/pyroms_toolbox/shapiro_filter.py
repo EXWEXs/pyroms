@@ -34,7 +34,7 @@ def shapiro1(Finp,order,scheme=1):
 
     if (scheme == 1):
         #Scheme 1:  constant order and no change at wall.
-        for n in list(range(order2)):
+        for n in range(order2):
             if n != order2:
                 cor[0] = 2. * (Finp[0] - Finp[1])
                 cor[Im-1] = 2. * (Finp[Im-1] - Finp[Im-2])
@@ -48,7 +48,7 @@ def shapiro1(Finp,order,scheme=1):
 
     elif scheme == 2:
         #Scheme 2:  constant order, smoothed at edges.
-        for n in list(range(order2)):
+        for n in range(order2):
             cor[0] = 2. * (Finp[0] - Finp[1])
             cor[Im-1] = 2. * (Finp[Im-1] - Finp[Im-2])
             cor[1:-1] = 2. * Finp[1:-1] - Finp[0:-2] - Finp[2:]
@@ -57,7 +57,7 @@ def shapiro1(Finp,order,scheme=1):
 
     elif scheme == 3:
         #Scheme 3:  reduced order and no change at wall.
-        for n in list(range(order2)):
+        for n in range(order2):
             Istr = n
             Iend = Im-k+1
             if n == 1:
@@ -76,7 +76,7 @@ def shapiro1(Finp,order,scheme=1):
 
     elif scheme == 4:
         #Scheme 4:  reduced order, smoothed at edges.
-        for n in list(range(order2)):
+        for n in range(order2):
             Istr = n
             Iend = Im-k+1
             if n == 1:
@@ -93,7 +93,7 @@ def shapiro1(Finp,order,scheme=1):
 
     elif scheme == 5:
         #Scheme 5:  constant order, periodic.
-        for n in list(range(order2)):
+        for n in range(order2):
             cor[0] = Finp[Im-2]
             cor[Im-1] = Finp[1]
             cor[1:-1] = 2. * Finp[1:-1] - Finp[0:-2] - Finp[2:]
@@ -130,17 +130,17 @@ def shapiro2(Finp,order,scheme=1,napp=1):
     F=Finp.copy()
     Fout = np.zeros((Im, Jm))
 
-    for n in list(range(napp)):
+    for n in range(napp):
   
         #Filter all rows.
-        for j in list(range(Jm)):
+        for j in range(Jm):
             Fraw = np.squeeze(F[:,j])
             Fraw = Fraw.T
             Fwrk = shapiro1(Fraw,order,scheme)
             Fout[:,j] = Fwrk.T
 
         #Filter all columns.
-        for i in list(range(Im)):
+        for i in range(Im):
             Fraw = np.squeeze(Fout[i,:])
             Fwrk = shapiro1(Fraw,order,scheme)
             Fout[i,:] = Fwrk

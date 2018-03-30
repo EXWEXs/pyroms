@@ -106,7 +106,7 @@ def remapping_bound(varname, srcfile, wts_files, srcgrd, dst_grd, \
 
     nctidx = 0
     # loop over the srcfile
-    for nf in list(range(nfile)):
+    for nf in range(nfile):
         print('Working with file', srcfile[nf], '...')
 
         # get time
@@ -135,7 +135,7 @@ def remapping_bound(varname, srcfile, wts_files, srcgrd, dst_grd, \
             nc.variables['ocean_time'][nctidx] = ocean_time[nt]
 
             # loop over variable
-            for nv in list(range(nvar)):
+            for nv in range(nvar):
                 print(' ')
                 print('remapping', varname[nv], 'from', srcgrd.name, \
                       'to', dst_grd.name)
@@ -207,7 +207,7 @@ def remapping_bound(varname, srcfile, wts_files, srcgrd, dst_grd, \
                        nc.variables[varn].field = src_var.field
 
                 # get the right remap weights file
-                for s in list(range(len(wts_files))):
+                for s in range(len(wts_files)):
                     if wts_files[s].__contains__(Cpos+'_to_'+Cpos+'.nc'):
                         wts_file = wts_files[s]
                         break
@@ -374,14 +374,14 @@ def remapping_bound(varname, srcfile, wts_files, srcgrd, dst_grd, \
 
                 # get the right remap weights file
                 if rotate_part:
-                    for s in list(range(len(wts_files))):
+                    for s in range(len(wts_files)):
                         if wts_files[s].__contains__('rho_to_rho.nc'):
                             wts_file_u = wts_files[s]
                             wts_file_v = wts_files[s]
                     Cpos_u = 'rho'
                     Cpos_v = 'rho'
                 else:
-                    for s in list(range(len(wts_files))):
+                    for s in range(len(wts_files)):
                         if wts_files[s].__contains__('u_to_rho.nc'):
                             wts_file_u = wts_files[s]
                         if wts_files[s].__contains__('v_to_rho.nc'):
@@ -521,7 +521,7 @@ def remapping_bound(varname, srcfile, wts_files, srcgrd, dst_grd, \
                 if rotate_part:
                     src_angle = np.zeros(dst_grd.hgrid.angle_rho.shape)
                 else:
-                    for s in list(range(len(wts_files))):
+                    for s in range(len(wts_files)):
                         if wts_files[s].__contains__('rho_to_rho.nc'):
                             wts_file = wts_files[s]
                     src_ang = srcgrd.hgrid.angle_rho[jjrange[0]:jjrange[1],iirange[0]:iirange[1]]
@@ -611,7 +611,7 @@ def remapping_bound(varname, srcfile, wts_files, srcgrd, dst_grd, \
                 idxu_west = np.where(dst_grd.hgrid.mask_u[:,0] == 0)
                 idxv_west = np.where(dst_grd.hgrid.mask_v[:,0] == 0)
                 if ndim == 3:
-                    for n in list(range(dst_grd.vgrid.N)):
+                    for n in range(dst_grd.vgrid.N):
                         dst_u_north[n, idxu_north[0]] = spval
                         dst_v_north[n, idxv_north[0]] = spval
                         dst_u_south[n, idxu_south[0]] = spval
@@ -770,22 +770,22 @@ def remapping_bound(varname, srcfile, wts_files, srcgrd, dst_grd, \
                 dst_vbar_west = np.zeros(dst_v_west.shape[1])
 
 #                print 'Shapes 3', dst_u_north.shape, dst_ubar_north.shape, z_u_north.shape, np.diff(z_u_north[:,1]).shape
-                for i in list(range(dst_u_north.shape[1])):
+                for i in range(dst_u_north.shape[1]):
                     dst_ubar_north[i] = (dst_u_north[:,i] * \
                         np.diff(z_u_north[:,i])).sum() / -z_u_north[0,i]
                     dst_ubar_south[i] = (dst_u_south[:,i] * \
                         np.diff(z_u_south[:,i])).sum() / -z_u_south[0,i]
-                for i in list(range(dst_v_north.shape[1])):
+                for i in range(dst_v_north.shape[1]):
                     dst_vbar_north[i] = (dst_v_north[:,i] * \
                         np.diff(z_v_north[:,i])).sum() / -z_v_north[0,i]
                     dst_vbar_south[i] = (dst_v_south[:,i] * \
                         np.diff(z_v_south[:,i])).sum() / -z_v_south[0,i]
-                for j in list(range(dst_u_east.shape[1])):
+                for j in range(dst_u_east.shape[1]):
                     dst_ubar_east[j] = (dst_u_east[:,j] * \
                         np.diff(z_u_east[:,j])).sum() / -z_u_east[0,j]
                     dst_ubar_west[j] = (dst_u_west[:,j] * \
                         np.diff(z_u_west[:,j])).sum() / -z_u_west[0,j]
-                for j in list(range(dst_v_east.shape[1])):
+                for j in range(dst_v_east.shape[1]):
                     dst_vbar_east[j] = (dst_v_east[:,j] * \
                         np.diff(z_v_east[:,j])).sum() / -z_v_east[0,j]
                     dst_vbar_west[j] = (dst_v_west[:,j] * \

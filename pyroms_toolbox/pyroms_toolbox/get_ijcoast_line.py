@@ -12,7 +12,7 @@ def get_ijcoast_line(mask):
 
     ijcoast = []
 
-    for i in list(range(iidx.shape[0])):
+    for i in range(iidx.shape[0]):
         if jidx[i] != mask.shape[0]-1:
             if mask[jidx[i], iidx[i]] != mask[jidx[i]+1, iidx[i]]:
                 ic = ([iidx[i]-0.5, iidx[i]+1-0.5])

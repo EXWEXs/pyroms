@@ -47,13 +47,13 @@ def compute_moc(v, grd, mask_subregion=None):
     z = np.tile(zr, (nb_subregion,1))
 
     lat = np.zeros((nb_subregion,M))
-    for r in list(range(nb_subregion)):
+    for r in range(nb_subregion):
         latv = grd.hgrid.lat_v * mask_subregion[r]
         lat[r] = latv.sum(axis=1) / mask_subregion[r].sum(axis=1)
 
     #mask_subregion = np.tile(mask_subregion, (1,nzr,1,1))
     mask_bassin = np.zeros((nb_subregion,nzr,M,L))
-    for r in list(range(nb_subregion)):
+    for r in range(nb_subregion):
         mask_bassin[r,:] = np.tile(mask_bassin[r,:], (nzr,1,1))
 
     #dy at V-pos
@@ -65,11 +65,11 @@ def compute_moc(v, grd, mask_subregion=None):
     vzonavg = np.zeros((nb_subregion,nzr,M))
     moc = np.zeros((nb_subregion,nzr,M))
 
-    for r in list(range(nb_subregion)):
+    for r in range(nb_subregion):
         vzr = -vz * dy * dz * mask_bassin[r,:]
         vzonavg[r] = vzr.sum(axis=2) #integrate zonally
         moc[r] = vzonavg[r].copy()
-        for k in list(range(1,nzr)):
+        for k in range(1,nzr):
             moc[r,k,:] = moc[r,k,:] + moc[r,k-1,:]
 
     moc = moc / 1e6  #Sverdrup

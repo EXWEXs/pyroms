@@ -70,7 +70,7 @@ def flood(varz, Bgrd, Bpos='t', irange=None, jrange=None, \
         msk[idx] = 1
     else:
         msk = mask.copy()
-    for k in list(range(nlev-1,0,-1)):
+    for k in range(nlev-1,0,-1):
         c1 = np.array(msk, dtype=bool)
         c2 = np.isnan(varz[k,:,:]) == 1
         if kk == 0:
@@ -95,8 +95,8 @@ def flood(varz, Bgrd, Bpos='t', irange=None, jrange=None, \
     varz[idx] = spval
     bottom = pyroms.utility.get_bottom(varz[::-1,:,:], mask, spval=spval)
     bottom = (nlev-1) - bottom
-    for i in list(range(Lm)):
-        for j in list(range(Mm)):
+    for i in range(Lm):
+        for j in range(Mm):
             if mask[j,i] == 1:
                 varz[int(bottom[j,i]):,j,i] = varz[int(bottom[j,i]),j,i]
 

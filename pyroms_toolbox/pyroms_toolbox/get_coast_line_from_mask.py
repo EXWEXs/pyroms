@@ -14,7 +14,7 @@ def get_coast_line_from_mask(msk, lon, lat):
 
     coast = []
 
-    for i in list(range(iidx.shape[0])):
+    for i in range(iidx.shape[0]):
         if jidx[i] != mask.shape[0]-1:
             if mask[jidx[i], iidx[i]] != mask[jidx[i]+1, iidx[i]]:
                 lonc = ([lon[jidx[i]+1,iidx[i]], lon[jidx[i]+1,iidx[i]+1]])

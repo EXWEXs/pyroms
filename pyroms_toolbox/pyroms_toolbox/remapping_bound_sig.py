@@ -66,7 +66,7 @@ def remapping_bound_sig(varname, srcfile, wts_files, srcgrd, dst_grd, \
 
     nctidx = 0
     # loop over the srcfile
-    for nf in list(range(nfile)):
+    for nf in range(nfile):
         print('Working with file', srcfile[nf], '...')
 
         # get time
@@ -95,7 +95,7 @@ def remapping_bound_sig(varname, srcfile, wts_files, srcgrd, dst_grd, \
             nc.variables['ocean_time'][nctidx] = ocean_time[nt]
 
             # loop over variable
-            for nv in list(range(nvar)):
+            for nv in range(nvar):
                 print(' ')
                 print('remapping', varname[nv], 'from', srcgrd.name, \
                       'to', dst_grd.name)
@@ -154,7 +154,7 @@ def remapping_bound_sig(varname, srcfile, wts_files, srcgrd, dst_grd, \
                        nc.variables[varn].field = src_var.field
 
                 # get the right remap weights file
-                for s in list(range(len(wts_files))):
+                for s in range(len(wts_files)):
                     if wts_files[s].__contains__(Cpos+'_to_'+Cpos+'.nc'):
                         wts_file = wts_files[s]
                         break
@@ -242,7 +242,7 @@ def remapping_bound_sig(varname, srcfile, wts_files, srcgrd, dst_grd, \
                 dst_12_west = dst_12[0:Mp, 0]
 
                 # rotate stress tensor
-                for s in list(range(len(wts_files))):
+                for s in range(len(wts_files)):
                     if wts_files[s].__contains__('rho_to_rho.nc'):
                         wts_file = wts_files[s]
                 src_ang = srcgrd.hgrid.angle_rho[jjrange[0]:jjrange[1],iirange[0]:iirange[1]]
@@ -257,7 +257,7 @@ def remapping_bound_sig(varname, srcfile, wts_files, srcgrd, dst_grd, \
 
                 if rotate_sig:
                     # North
-                    for i in list(range(Lp)):
+                    for i in range(Lp):
                         Qrot = [[cos_ang[Mp-1,i], sin_ang[Mp-1,i]],
                                [-sin_ang[Mp-1,i], cos_ang[Mp-1,i]]]
                         QrotT = [[cos_ang[Mp-1,i], -sin_ang[Mp-1,i]],
@@ -270,7 +270,7 @@ def remapping_bound_sig(varname, srcfile, wts_files, srcgrd, dst_grd, \
                         dst_22_north[i] = sig_rot[1,1]
 
                     # South
-                    for i in list(range(Lp)):
+                    for i in range(Lp):
                         Qrot = [[cos_ang[0,i], sin_ang[0,i]],
                                [-sin_ang[0,i], cos_ang[0,i]]]
                         QrotT = [[cos_ang[0,i], -sin_ang[0,i]],
@@ -283,7 +283,7 @@ def remapping_bound_sig(varname, srcfile, wts_files, srcgrd, dst_grd, \
                         dst_22_south[i] = sig_rot[1,1]
 
                     # East
-                    for j in list(range(Mp)):
+                    for j in range(Mp):
                         Qrot = [[cos_ang[j,Lp-1], sin_ang[j,Lp-1]],
                                [-sin_ang[j,Lp-1], cos_ang[j,Lp-1]]]
                         QrotT = [[cos_ang[j,Lp-1], -sin_ang[j,Lp-1]],
@@ -296,7 +296,7 @@ def remapping_bound_sig(varname, srcfile, wts_files, srcgrd, dst_grd, \
                         dst_22_east[j] = sig_rot[1,1]
 
                     # West
-                    for j in list(range(Mp)):
+                    for j in range(Mp):
                         Qrot = [[cos_ang[j,0], sin_ang[j,0]],
                                [-sin_ang[j,0], cos_ang[j,0]]]
                         QrotT = [[cos_ang[j,0], -sin_ang[j,0]],

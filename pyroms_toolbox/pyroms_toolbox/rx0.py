@@ -20,14 +20,14 @@ def rx0(h,rmask):
 
     #  Land/Sea mask on U-points.
     umask = np.zeros((Mp,L))
-    for j in list(range(Mp)):
-        for i in list(range(1,Lp)):
+    for j in range(Mp):
+        for i in range(1,Lp):
             umask[j,i-1] = rmask[j,i] * rmask[j,i-1]
 
     #  Land/Sea mask on V-points.
     vmask = np.zeros((M,Lp))
-    for j in list(range(1,Mp)):
-        for i in list(range(Lp)):
+    for j in range(1,Mp):
+        for i in range(Lp):
             vmask[j-1,i] = rmask[j,i] * rmask[j-1,i]
 
     #-------------------------------------------------------------------

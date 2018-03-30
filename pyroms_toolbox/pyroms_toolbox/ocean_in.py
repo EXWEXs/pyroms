@@ -248,7 +248,7 @@ class ocean_in:
         # Copy here in case we're adding this object to itself
         t_dict = copy.deepcopy(self.var_dict)
         num_lists = len(my_ocn_list)
-        for i in list(range(num_lists)):
+        for i in range(num_lists):
             new_dict = my_ocn_list[i].var_dict
             for it in self.var_list:
                 var = it.text

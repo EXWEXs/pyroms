@@ -20,14 +20,14 @@ def rx1(z_w,rmask):
 
     #  Land/Sea mask on U-points.
     umask = np.zeros((L,Mp))
-    for j in list(range(Mp)):
-        for i in list(range(1,Lp)):
+    for j in range(Mp):
+        for i in range(1,Lp):
             umask[i-1,j] = rmask[i,j] * rmask[i-1,j]
 
     #  Land/Sea mask on V-points.
     vmask = np.zeros((Lp,M))
-    for j in list(range(1,Mp)):
-        for i in list(range(Lp)):
+    for j in range(1,Mp):
+        for i in range(Lp):
             vmask[i,j-1] = rmask[i,j] * rmask[i,j-1]
 
     #-------------------------------------------------------------------
@@ -37,7 +37,7 @@ def rx1(z_w,rmask):
     zx = np.zeros((N,L,Mp))
     zy = np.zeros((N,Lp,M))
 
-    for k in list(range(N)):
+    for k in range(N):
         zx[k,:] = abs((z_w[k,1:,:] - z_w[k,:-1,:] + z_w[k-1,1:,:] - z_w[k-1,:-1,:]) / 
                       (z_w[k,1:,:] + z_w[k,:-1,:] - z_w[k-1,1:,:] - z_w[k-1,:-1,:]))
         zy[k,:] = abs((z_w[k,:,1:] - z_w[k,:,:-1] + z_w[k-1,:,1:] - z_w[k-1,:,:-1]) /

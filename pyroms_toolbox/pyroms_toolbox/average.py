@@ -84,7 +84,7 @@ def average(var, ncfiles, trange=None, avgfile=None, spval=1e37, timevar='ocean_
             incavg = np.zeros((vsh[1],vsh[2],vsh[3]))
 
             ii = 0
-            for i in list(range(start,end)):
+            for i in range(start,end):
                 ii = ii + 1
                 #calls Fortran function avg3d to perform an incremental average
                 incavg = _average.avg3d(vble[i,:],incavg,ii,spval)
@@ -100,7 +100,7 @@ def average(var, ncfiles, trange=None, avgfile=None, spval=1e37, timevar='ocean_
             incavg = np.zeros((vsh[1],vsh[2]))
 
             ii = 0
-            for i in list(range(start,end)):
+            for i in range(start,end):
                 ii = ii + 1
                 #calls Fortran function avg2d to perform an incremental average
                 incavg = _average.avg2d(vble[i,:],incavg,ii,spval)

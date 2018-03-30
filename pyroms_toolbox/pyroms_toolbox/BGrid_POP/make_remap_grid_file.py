@@ -41,8 +41,8 @@ def make_remap_grid_file(Bgrd, Bpos='t'):
     grid_corner_lon = np.zeros((grid_size, 4))
     grid_corner_lat = np.zeros((grid_size, 4))
     k = 0
-    for j in list(range(Mp)):
-        for i in list(range(Lp)):
+    for j in range(Mp):
+        for i in range(Lp):
             grid_corner_lon[k,0] = lon_corner[j,i]
             grid_corner_lat[k,0] = lat_corner[j,i]
             grid_corner_lon[k,1] = lon_corner[j,i+1]
