@@ -89,12 +89,12 @@ class ROMS_gridinfo(object):
             s = line.split()
             if s[0] == 'id':
                 if s[2] == self.id:
-                    for l in list(range(line_nb, line_nb+5)):
+                    for l in range(line_nb, line_nb+5):
                         s = lines[l].split()
                         info.append(s[2])
                         line_nb = line_nb + 1
                     if info[4] == 'roms':
-                        for l in list(range(line_nb, line_nb+4)):
+                        for l in range(line_nb, line_nb+4):
                             s = lines[l].split()
                             info.append(s[2])
                     if info[4] == 'z':
@@ -122,7 +122,7 @@ class ROMS_gridinfo(object):
         elif info[4] == 'z':
             nline = len(info)
             dep = info[5]
-            for line in list(range(6,nline)):
+            for line in range(6,nline):
                 dep = dep + info[line]
             dep = np.array(dep, dtype=np.float)
 

@@ -361,13 +361,13 @@ class z_r(object):
         ti = zeta.shape[0]
         z_r = np.empty((ti, self.N) + self.h.shape, 'd')
         if self.Vtrans == 1:
-            for n in list(range(ti)):
-                for  k in list(range(self.N)):
+            for n in range(ti):
+                for  k in range(self.N):
                     z0 = self.hc * self.s_rho[k] + (self.h - self.hc) * self.Cs_r[k]
                     z_r[n,k,:] = z0 + zeta[n,:] * (1.0 + z0 / self.h)
         elif self.Vtrans == 2 or self.Vtrans == 4 or self.Vtrans == 5:
-            for n in list(range(ti)):
-                for  k in list(range(self.N)):
+            for n in range(ti):
+                for  k in range(self.N):
                     z0 = (self.hc * self.s_rho[k] + self.h * self.Cs_r[k]) / \
                           (self.hc + self.h)
                     z_r[n,k,:] = zeta[n,:] + (zeta[n,:] + self.h) * z0
@@ -409,13 +409,13 @@ class z_w(object):
         ti = zeta.shape[0]
         z_w = np.empty((ti, self.Np) + self.h.shape, 'd')
         if self.Vtrans == 1:
-            for n in list(range(ti)):
-                for  k in list(range(self.Np)):
+            for n in range(ti):
+                for  k in range(self.Np):
                     z0 = self.hc * self.s_w[k] + (self.h - self.hc) * self.Cs_w[k]
                     z_w[n,k,:] = z0 + zeta[n,:] * (1.0 + z0 / self.h)
         elif self.Vtrans == 2 or self.Vtrans == 4 or self.Vtrans == 5:
-            for n in list(range(ti)):
-                for  k in list(range(self.Np)):
+            for n in range(ti):
+                for  k in range(self.Np):
                     z0 = (self.hc * self.s_w[k] + self.h * self.Cs_w[k]) / \
                           (self.hc + self.h)
                     z_w[n,k,:] = zeta[n,:] + (zeta[n,:] + self.h) * z0

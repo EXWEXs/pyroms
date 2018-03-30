@@ -228,7 +228,7 @@ class KDTree(object):
                 # brute-force
                 data = self.data[node.idx]
                 ds = minkowski_distance_p(data,x[np.newaxis,:],p)
-                for i in list(range(len(ds))):
+                for i in range(len(ds)):
                     if ds[i]<distance_upper_bound:
                         if len(neighbors)==k:
                             heappop(neighbors)
@@ -337,7 +337,7 @@ class KDTree(object):
             for c in np.ndindex(retshape):
                 hits = self.__query(x[c], k=k, p=p, distance_upper_bound=distance_upper_bound)
                 if k>1:
-                    for j in list(range(len(hits))):
+                    for j in range(len(hits)):
                         dd[c+(j,)], ii[c+(j,)] = hits[j]
                 elif k==1:
                     if len(hits)>0:
@@ -361,7 +361,7 @@ class KDTree(object):
                 dd.fill(np.inf)
                 ii = np.empty(k,dtype=np.int)
                 ii.fill(self.n)
-                for j in list(range(len(hits))):
+                for j in range(len(hits)):
                     dd[j], ii[j] = hits[j]
                 return dd, ii
             elif k is None:
@@ -458,7 +458,7 @@ class KDTree(object):
             For each element self.data[i] of this tree, results[i] is a list of the
             indices of its neighbors in other.data.
         """
-        results = [[] for i in list(range(self.n))]
+        results = [[] for i in range(self.n)]
         def traverse_checking(node1, rect1, node2, rect2):
             if rect1.min_distance_rectangle(rect2, p)>r/(1.+eps):
                 return
@@ -671,9 +671,9 @@ def distance_matrix(x,y,p=2,threshold=1000000):
     else:
         result = np.empty((m,n),dtype=np.float) #FIXME: figure out the best dtype
         if m<n:
-            for i in list(range(m)):
+            for i in range(m):
                 result[i,:] = minkowski_distance(x[i],y,p)
         else:
-            for j in list(range(n)):
+            for j in range(n):
                 result[:,j] = minkowski_distance(x,y[j],p)
         return result

@@ -87,16 +87,16 @@ class BoundaryInteractor(object):
         x, y = list(zip(*self._poly.xy))
         num_points = len(x)-1  # the first and last point are repeated
         
-        xp = [x[n] for n in list(range(num_points)) if self.beta[n]==1]
-        yp = [y[n] for n in list(range(num_points)) if self.beta[n]==1]
+        xp = [x[n] for n in range(num_points) if self.beta[n]==1]
+        yp = [y[n] for n in range(num_points) if self.beta[n]==1]
         self._pline.set_data(xp, yp)
         
-        xm = [x[n] for n in list(range(num_points)) if self.beta[n]==-1]
-        ym = [y[n] for n in list(range(num_points)) if self.beta[n]==-1]
+        xm = [x[n] for n in range(num_points) if self.beta[n]==-1]
+        ym = [y[n] for n in range(num_points) if self.beta[n]==-1]
         self._mline.set_data(xm, ym)
         
-        xz = [x[n] for n in list(range(num_points)) if self.beta[n]==0]
-        yz = [y[n] for n in list(range(num_points)) if self.beta[n]==0]
+        xz = [x[n] for n in range(num_points) if self.beta[n]==0]
+        yz = [y[n] for n in range(num_points) if self.beta[n]==0]
         self._zline.set_data(xz, yz)
         
         if len(x)-1 < self.gridgen_options['ul_idx']:
@@ -210,7 +210,7 @@ class BoundaryInteractor(object):
         elif event.key=='i':
             xys = self._poly.get_transform().transform(self._poly.xy)
             p = event.x, event.y # display coords
-            for i in list(range(len(xys)-1)):
+            for i in range(len(xys)-1):
                 s0 = xys[i]
                 s1 = xys[i+1]
                 d = dist_point_to_segment(p, s0, s1)
@@ -440,7 +440,7 @@ class _Focus_x(object):
         y = np.asarray(y)
         assert not np.any(x>1.0) or not np.any(x<0.0)  \
             or not np.any(y>1.0) or not np.any(x<0.0), \
-                'x and y must both be within the list(range [0, 1].'
+                'x and y must both be within the range [0, 1].'
         
         alpha = 1.0 - 1.0/self.factor
         def xf(x):
@@ -487,7 +487,7 @@ class _Focus_y(object):
         y = np.asarray(y)
         assert not np.any(x>1.0) or not np.any(x<0.0)  \
             or not np.any(y>1.0) or not np.any(x<0.0), \
-                'x and y must both be within the list(range [0, 1].'
+                'x and y must both be within the range [0, 1].'
         
         alpha = 1.0 - 1.0/self.factor
         
@@ -998,13 +998,13 @@ class Gridgen(CGrid):
              ctypes.byref(yrect) )
         
         x = self._libgridgen.gridnodes_getx(self._gn)
-        x = np.asarray([x[0][i] for i in list(range(self.ny*self.nx))])
-        # x = np.asarray([x[j][i] for j in list(range(self.ny) for i in list(range(self.nx)])
+        x = np.asarray([x[0][i] for i in range(self.ny*self.nx)])
+        # x = np.asarray([x[j][i] for j in range(self.ny) for i in range(self.nx)])
         x.shape = (self.ny, self.nx)
         
         y = self._libgridgen.gridnodes_gety(self._gn)    
-        y = np.asarray([y[0][i] for i in list(range(self.ny*self.nx))])            
-        # y = np.asarray([y[j][i] for j in list(range(self.ny) for i in list(range(self.nx)])
+        y = np.asarray([y[0][i] for i in range(self.ny*self.nx)])            
+        # y = np.asarray([y[j][i] for j in range(self.ny) for i in range(self.nx)])
         y.shape = (self.ny, self.nx)
         
         if np.any(np.isnan(x)) or np.any(np.isnan(y)):
@@ -1376,25 +1376,25 @@ class edit_mask_mesh_ij(object):
 
         if type(grd).__name__ == 'ROMS_Grid':
             try:
-                x = list(range(grd.hgrid.lon_vert.shape[1]))
-                y = list(range(grd.hgrid.lat_vert.shape[0]))
+                x = range(grd.hgrid.lon_vert.shape[1])
+                y = range(grd.hgrid.lat_vert.shape[0])
                 xv, yv = np.meshgrid(x,y)
                 mask = grd.hgrid.mask_rho
             except:
-                x = list(range(grd.hgrid.x_vert.shape[1]))
-                y = list(range(grd.hgrid.y_vert.shape[0]))
+                x = range(grd.hgrid.x_vert.shape[1])
+                y = range(grd.hgrid.y_vert.shape[0])
                 xv, yv = np.meshgrid(x,y)
                 mask = grd.hgrid.mask_rho
 
         if type(grd).__name__ == 'CGrid_geo':
             try:
-                x = list(range(grd.lon_vert.shape[1]))
-                y = list(range(grd.lat_vert.shape[0]))
+                x = range(grd.lon_vert.shape[1])
+                y = range(grd.lat_vert.shape[0])
                 xv, yv = np.meshgrid(x,y)
                 mask = grd.mask_rho
             except:
-                x = list(range(grd.x_vert.shape[1]))
-                y = list(range(grd.y_vert.shape[0]))
+                x = range(grd.x_vert.shape[1])
+                y = range(grd.y_vert.shape[0])
                 xv, yv = np.meshgrid(x,y)
                 mask = grd.mask_rho
 

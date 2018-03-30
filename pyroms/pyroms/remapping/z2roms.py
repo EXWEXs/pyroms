@@ -87,7 +87,7 @@ def z2roms(varz, grdz, grd, Cpos='rho', irange=None, jrange=None, \
 
     var = np.ma.zeros((Nm, Mm, Lm))
 
-    for k in list(range(Nm)):
+    for k in range(Nm):
         var[k,:,:] = _interp.xhslice(varz, \
                       z[:,jrange[0]:jrange[1], irange[0]:irange[1]], \
                       depth[k,jrange[0]:jrange[1], irange[0]:irange[1]], \

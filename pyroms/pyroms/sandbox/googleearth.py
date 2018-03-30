@@ -107,7 +107,7 @@ def kmz_anim(lon, lat, time, prop, **kwargs):
 
         f = zipfile.ZipFile(kmzfile, 'w')
 
-        for frame in list(range(prop.shape[0])):
+        for frame in range(prop.shape[0]):
             tstart = time_starts[frame]
             tstop = time_stops[frame]
             print('Writing frame ', frame, tstart.isoformat(), tstop.isoformat())

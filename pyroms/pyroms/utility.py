@@ -129,7 +129,7 @@ def find_nearestgridpoints(longitude, latitude, grd, Cpos='rho'):
         xp = lon[jindex, iindex]
         yp = lat[jindex, iindex]
         verts = []
-        for n in list(range(4)):
+        for n in range(4):
             verts.append([xp[n], yp[n]])
         #inside = pnpoly(longitude, latitude, verts)
         inside = mpl.path.Path(verts).contains_point([longitude, latitude])
@@ -140,7 +140,7 @@ def find_nearestgridpoints(longitude, latitude, grd, Cpos='rho'):
             xp = lon[jindex, iindex]
             yp = lat[jindex, iindex]
             verts = []
-            for n in list(range(4)):
+            for n in range(4):
                 verts.append([xp[n], yp[n]])
             #inside = pnpoly(longitude, latitude, verts)
             inside = mpl.path.Path(verts).contains_point([longitude, latitude])
@@ -151,7 +151,7 @@ def find_nearestgridpoints(longitude, latitude, grd, Cpos='rho'):
                 xp = lon[jindex, iindex]
                 yp = lat[jindex, iindex]
                 verts = []
-                for n in list(range(4)):
+                for n in range(4):
                     verts.append([xp[n], yp[n]])
                 #inside = pnpoly(longitude, latitude, verts)
                 inside = mpl.path.Path(verts).contains_point([longitude, latitude])
@@ -162,7 +162,7 @@ def find_nearestgridpoints(longitude, latitude, grd, Cpos='rho'):
                     xp = lon[jindex, iindex]
                     yp = lat[jindex, iindex]
                     verts = []
-                    for n in list(range(4)):
+                    for n in range(4):
                         verts.append([xp[n], yp[n]])
                     #inside = pnpoly(longitude, latitude, verts)
                     inside = mpl.path.Path(verts).contains_point([longitude, latitude])
@@ -187,9 +187,9 @@ def get_coast_from_map(map):
     coast = []
 
     kk=len(map.coastsegs)
-    for k in list(range(kk)):
+    for k in range(kk):
         ll = len(map.coastsegs[k])
-        for l in list(range(ll)):
+        for l in range(ll):
             c = list(map(map.coastsegs[k][l][0], map.coastsegs[k][l][1], inverse=True))
             coast.append(c)
         coast.append((np.nan, np.nan))
@@ -217,7 +217,7 @@ def ijcoast_old(coast, grd):
 
     ijcoast = []
 
-    for k in list(range(coast.shape[0])):
+    for k in range(coast.shape[0]):
         if np.isnan(coast[k,0]):
             ijcoast.append([np.nan, np.nan])
         else:
