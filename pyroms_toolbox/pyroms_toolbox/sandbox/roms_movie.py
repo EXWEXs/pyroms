@@ -69,7 +69,7 @@ def make_movie(filelst, varname, cmin, cmax, view, lev=0, istart=None, iend=None
         print('Turn interactive mode off')
         plt.ioff()
 
-    for tindex in range(istart, iend, 1):
+    for tindex in list(range(istart, iend, 1)):
         if view is 'sview':
             octant.roms.roms_plot.varsview(var, grd, tindex, lev, Cpos, cmin=cmin, cmax=cmax, proj=proj, \
                                    title=title, outfile='plot.png')
@@ -113,7 +113,7 @@ def make_movie(filelst, varname, cmin, cmax, view, lev=0, istart=None, iend=None
         plt.ion()
 
     if clean is True:
-        for tindex in range(istart, iend, 1):
+        for tindex in list(range(istart, iend, 1)):
             os.remove(str('%04d' % tindex) + '.png')
 
 
@@ -151,7 +151,7 @@ def make_big_movie(filelst, varname, cmin, cmax, Cpos, view, lev=0, grd=None, \
 
     counter = 0
 
-    for ifile in range(nfile):
+    for ifile in list(range(nfile)):
 
         # get variable
         data = netCDF4.Dataset(filelst[ifile], 'r')
@@ -160,7 +160,7 @@ def make_big_movie(filelst, varname, cmin, cmax, Cpos, view, lev=0, grd=None, \
         # get time 
         time = data.variables['ocean_time'][:]
 
-        for tindex in range(time.shape[0]):
+        for tindex in list(range(time.shape[0])):
             if view is 'sview':
                 octant.roms.roms_plot.varsview(var, grd, tindex, lev, Cpos, cmin=cmin, cmax=cmax, proj=proj, \
                                        title=title, outfile='plot.png')
@@ -208,7 +208,7 @@ def make_big_movie(filelst, varname, cmin, cmax, Cpos, view, lev=0, grd=None, \
     print("\n\n The movie was written to 'output.avi'")
 
     if clean is True:
-        for tindex in range(counter):
+        for tindex in list(range(counter)):
             os.remove(str('%05d' % tindex) + '.png')
 
 

@@ -43,7 +43,7 @@ class BGrid_POP(object):
 
         # compute the mask at t point from h_t
         self.mask_t = np.ones(self.z_t.shape)
-        for n in range(self.z_t.shape[0]):
+        for n in list(range(self.z_t.shape[0])):
             depth = self.z_w[n,0,0]
             rtol=1e-6
             midx = np.where(np.abs(self.h_t - depth) <= rtol * np.abs(depth))
@@ -51,7 +51,7 @@ class BGrid_POP(object):
 
         # compute the mask at u point from h_u
         self.mask_u = np.ones(self.z_t.shape)
-        for n in range(self.z_t.shape[0]):
+        for n in list(range(self.z_t.shape[0])):
             depth = self.z_w[n,0,0]
             rtol=1e-6
             midx = np.where(np.abs(self.h_u - depth) <= rtol * np.abs(depth))

@@ -58,7 +58,7 @@ def remapping_tensor(varname, srcfile, wts_files, srcgrd, dstgrd, \
         wts_files = sorted(glob.glob(wts_files))
  
     # loop over the srcfile
-    for nf in range(nfile):
+    for nf in list(range(nfile)):
         print('Working with file', srcfile[nf], '...')
 
         # get time 
@@ -85,7 +85,7 @@ def remapping_tensor(varname, srcfile, wts_files, srcgrd, dstgrd, \
             nc.variables['ocean_time'][nctidx] = ocean_time[nt]
 
             # loop over variable
-            for nv in range(nvar):
+            for nv in list(range(nvar)):
                 print(' ')
                 print('remapping', varname[nv], 'from', srcgrd.name, \
                       'to', dstgrd.name)
@@ -136,7 +136,7 @@ def remapping_tensor(varname, srcfile, wts_files, srcgrd, dstgrd, \
 #                    nc.variables[varname[nv]]._FillValue = spval
 
                 # get the right remap weights file
-                for s in range(len(wts_files)):
+                for s in list(range(len(wts_files))):
                     if wts_files[s].__contains__(Cpos+'_to_'+Cpos+'.nc'):
                         wts_file = wts_files[s]
                         break
@@ -200,8 +200,8 @@ def remapping_tensor(varname, srcfile, wts_files, srcgrd, dstgrd, \
                 Mp = cos_ang.shape[-2]
                 print("Lp, Mp", Lp, Mp)
 
-                for j in range(Mp):
-                    for i in range(Lp):
+                for j in list(range(Mp)):
+                    for i in list(range(Lp)):
                         Qrot = [[cos_ang[j,i], sin_ang[j,i]],
                                [-sin_ang[j,i], cos_ang[j,i]]]
                         QrotT = [[cos_ang[j,i], -sin_ang[j,i]],

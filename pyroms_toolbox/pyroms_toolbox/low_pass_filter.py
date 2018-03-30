@@ -25,13 +25,13 @@ def low_pass_filter(data, window_size=3):
     win2 = (window_size - 1) / 2
 
     if (len(data.squeeze().shape) == 1):
-        for n in range(np.size(data,axis=0)):
+        for n in list(range(np.size(data,axis=0))):
             idx1 = int(np.maximum(0, n-win2))
             idx2 = int(np.minimum(np.size(data,axis=0), n+win2+1))
             low_passed_data[n] = data[idx1:idx2].sum(axis=0) / float(idx2-idx1)
 
     else:
-        for n in range(np.size(data,axis=0)):
+        for n in list(range(np.size(data,axis=0))):
             idx1 = int(np.maximum(0, n-win2))
             idx2 = int(np.minimum(np.size(data,axis=0), n+win2+1))
             low_passed_data[n,:] = data[idx1:idx2,:].sum(axis=0) / float(idx2-idx1)

@@ -11,18 +11,18 @@ def lsq_phase_amplitude(omega,ue,un,t):
 
     # Build Matrix
     c = np.ones((m,t.shape[0]))
-    for i in range(nc):
+    for i in list(range(nc)):
         c[2*i+1,:]   =  np.cos(omega[i]*t)
         c[2*i+2,:] =  np.sin(omega[i]*t)
 
     A = np.zeros((m,m))
-    for i in range(m):
-        for j in range(m):
+    for i in list(range(m)):
+        for j in list(range(m)):
             A[i,j] = np.mean(c[i,:] * c[j,:])
 
     b1 = np.zeros(m)
     b2 = np.zeros(m)
-    for i in range(m):
+    for i in list(range(m)):
         b1[i] = np.mean(ue * c[i,:])
         b2[i] = np.mean(un * c[i,:])
 
@@ -36,7 +36,7 @@ def lsq_phase_amplitude(omega,ue,un,t):
     Amp = np.sqrt(C*C + D*D)
     Pha = 180*np.arctan2(C,D)/np.pi
 
-    for i in range(nc):
+    for i in list(range(nc)):
         if Pha[i] < 0:
             Pha[i] = Pha[i] + 360
 

@@ -100,7 +100,7 @@ def remapping(varname, srcfile, wts_files, srcgrd, dstgrd, \
 
     nctidx = 0
     # loop over the srcfile
-    for nf in range(nfile):
+    for nf in list(range(nfile)):
         print('Working with file', srcfile[nf], '...')
 
         # get time
@@ -128,7 +128,7 @@ def remapping(varname, srcfile, wts_files, srcgrd, dstgrd, \
             nc.variables['ocean_time'][nctidx] = ocean_time[nt]
 
             # loop over variable
-            for nv in range(nvar):
+            for nv in list(range(nvar)):
                 print(' ')
                 print('remapping', varname[nv], 'from', srcgrd.name, \
                       'to', dstgrd.name)
@@ -187,7 +187,7 @@ def remapping(varname, srcfile, wts_files, srcgrd, dstgrd, \
                     nc.variables[varname[nv]].field = src_var.field
 
                 # get the right remap weights file
-                for s in range(len(wts_files)):
+                for s in list(range(len(wts_files))):
                     if wts_files[s].__contains__(Cpos+'_to_'+Cpos+'.nc'):
                         wts_file = wts_files[s]
                         break
@@ -296,14 +296,14 @@ def remapping(varname, srcfile, wts_files, srcgrd, dstgrd, \
 
                 # get the right remap weights file
                 if rotate_part:
-                    for s in range(len(wts_files)):
+                    for s in list(range(len(wts_files))):
                         if wts_files[s].__contains__('rho_to_rho.nc'):
                             wts_file_u = wts_files[s]
                             wts_file_v = wts_files[s]
                     Cpos_u = 'rho'
                     Cpos_v = 'rho'
                 else:
-                    for s in range(len(wts_files)):
+                    for s in list(range(len(wts_files))):
                         if wts_files[s].__contains__('u_to_rho.nc'):
                             wts_file_u = wts_files[s]
                         if wts_files[s].__contains__('v_to_rho.nc'):
@@ -418,7 +418,7 @@ def remapping(varname, srcfile, wts_files, srcgrd, dstgrd, \
                 if rotate_part:
                     src_angle = np.zeros(dstgrd.hgrid.angle_rho.shape)
                 else:
-                    for s in range(len(wts_files)):
+                    for s in list(range(len(wts_files))):
                         if wts_files[s].__contains__('rho_to_rho.nc'):
                             wts_file = wts_files[s]
                     src_ang = srcgrd.hgrid.angle_rho[jjrange[0]:jjrange[1],iirange[0]:iirange[1]]
@@ -444,7 +444,7 @@ def remapping(varname, srcfile, wts_files, srcgrd, dstgrd, \
                 if ndim == 3:
                     dst_u = 0.5 * (dst_u[:,:,:-1] + dst_u[:,:,1:])
                     dst_v = 0.5 * (dst_v[:,:-1,:] + dst_v[:,1:,:])
-                    for n in range(dstgrd.vgrid.N):
+                    for n in list(range(dstgrd.vgrid.N)):
                         dst_u[n,idxu[0], idxu[1]] = spval
                         dst_v[n,idxv[0], idxv[1]] = spval
                 else:
@@ -487,13 +487,13 @@ def remapping(varname, srcfile, wts_files, srcgrd, dstgrd, \
                 dst_ubar = np.zeros((dst_u.shape[1], dst_u.shape[2]))
                 dst_vbar = np.zeros((dst_v.shape[1], dst_v.shape[2]))
 
-                for i in range(dst_ubar.shape[1]):
-                    for j in range(dst_ubar.shape[0]):
+                for i in list(range(dst_ubar.shape[1])):
+                    for j in list(range(dst_ubar.shape[0])):
                         dst_ubar[j,i] = (dst_u[:,j,i] * \
                                 np.diff(z_u[:,j,i])).sum() / -z_u[0,j,i]
 
-                for i in range(dst_vbar.shape[1]):
-                    for j in range(dst_vbar.shape[0]):
+                for i in list(range(dst_vbar.shape[1])):
+                    for j in list(range(dst_vbar.shape[0])):
                         dst_vbar[j,i] = (dst_v[:,j,i] * \
                                 np.diff(z_v[:,j,i])).sum() / -z_v[0,j,i]
 

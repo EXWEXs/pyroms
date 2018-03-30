@@ -34,8 +34,8 @@ def get_nc_BGrid_GFDL(grdfile, name='GFDL_CM2.1_North_Pacific', area='regional',
     M_t, L_t = kmt.shape
     N_t = z_t.shape[0]
     mask_t = np.zeros((N_t, M_t, L_t))
-    for j in range(M_t):
-        for i in range(L_t):
+    for j in list(range(M_t)):
+        for i in list(range(L_t)):
             try:
                 mask_t[0:int(kmt[j,i]), j,i] = 1
             except:
@@ -45,8 +45,8 @@ def get_nc_BGrid_GFDL(grdfile, name='GFDL_CM2.1_North_Pacific', area='regional',
     M_uv, L_uv = kmu.shape
     N_uv = z_uv.shape[0]
     mask_uv = np.zeros((N_uv, M_uv, L_uv))
-    for j in range(M_uv):
-        for i in range(L_uv):
+    for j in list(range(M_uv)):
+        for i in list(range(L_uv)):
             try:
                 mask_uv[0:int(kmu[j,i]), j,i] = 1
             except:

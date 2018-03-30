@@ -23,7 +23,7 @@ def plot_coast_line(grd, proj=None, Cpos='rho'):
         col = collections.LineCollection(c)
     else:
         cp = np.zeros(c.shape)
-        for i in range(c.shape[0]):
+        for i in list(range(c.shape[0])):
             cp[i,:,0], cp[i,:,1] = proj(c[i,:,0], c[i,:,1])
 
         col = collections.LineCollection(cp)

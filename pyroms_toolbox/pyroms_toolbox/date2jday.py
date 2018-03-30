@@ -15,7 +15,7 @@ def date2jday(date):
 
     jday = []
 
-    for t in range(nt):
+    for t in list(range(nt)):
         a = np.floor((14 - date[t].month)/12.)
         y = date[t].year + 4800 - a
         m = date[t].month + 12*a - 3
