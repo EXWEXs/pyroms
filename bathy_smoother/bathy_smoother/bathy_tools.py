@@ -25,11 +25,11 @@ def RoughnessMatrix(DEP, MSK):
 
     RoughMat = np.zeros(DEP.shape)
 
-    for iEta in list(range(1,eta_rho-1)):
-        for iXi in list(range(1,xi_rho-1)):
+    for iEta in range(1,eta_rho-1):
+        for iXi in range(1,xi_rho-1):
             if (MSK[iEta,iXi] == 1):
                 rough = 0
-                for i in list(range(4)):
+                for i in range(4):
                     iEtaB = iEta + Umat[i,0]
                     iXiB = iXi + Umat[i,1]
                     if (MSK[iEtaB,iXiB] == 1):
