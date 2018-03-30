@@ -16,8 +16,8 @@ def GetIJS_rx0(MSK, DEP, r):
 
     nbVert = 0
     ListCoord = np.zeros((eta_rho, xi_rho))
-    for iEta in range(eta_rho):
-       for iXi in range(xi_rho):
+    for iEta in list(range(eta_rho)):
+       for iXi in list(range(xi_rho)):
            if (MSK[iEta,iXi] == 1):
                nbVert = nbVert + 1
                ListCoord[iEta,iXi] = nbVert
@@ -28,14 +28,14 @@ def GetIJS_rx0(MSK, DEP, r):
 
     TotalNbConstant = 0
     TotalNbEntry = 0
-    for iEta in range(eta_rho-1):
-       for iXi in range(xi_rho):
+    for iEta in list(range(eta_rho-1)):
+       for iXi in list(range(xi_rho)):
             if (MSK[iEta,iXi] == 1 and MSK[iEta+1,iXi] == 1):
                 TotalNbConstant = TotalNbConstant + 2
                 TotalNbEntry = TotalNbEntry + 4
 
-    for iEta in range(eta_rho):
-       for iXi in range(xi_rho-1):
+    for iEta in list(range(eta_rho)):
+       for iXi in list(range(xi_rho-1)):
             if (MSK[iEta,iXi] == 1 and MSK[iEta,iXi+1] == 1):
                 TotalNbConstant = TotalNbConstant + 2
                 TotalNbEntry = TotalNbEntry + 4
@@ -50,8 +50,8 @@ def GetIJS_rx0(MSK, DEP, r):
 
     nbConst=0;
     nbEntry=0;
-    for iEta in range(eta_rho-1):
-       for iXi in range(xi_rho):
+    for iEta in list(range(eta_rho-1)):
+       for iXi in list(range(xi_rho)):
             if (MSK[iEta,iXi] == 1 and MSK[iEta+1,iXi] == 1):
                 idx1 = ListCoord[iEta,iXi]
                 idx2 = ListCoord[iEta+1,iXi]
@@ -82,8 +82,8 @@ def GetIJS_rx0(MSK, DEP, r):
 
     print('Inequalities for dh(iEta,iXi) and dh(iEta+1,iXi)')
 
-    for iEta in range(eta_rho):
-        for iXi in range(xi_rho-1):
+    for iEta in list(range(eta_rho)):
+        for iXi in list(range(xi_rho-1)):
             if (MSK[iEta,iXi] == 1 and MSK[iEta, iXi+1] == 1):
                 idx1 = ListCoord[iEta,iXi]
                 idx2 = ListCoord[iEta,iXi+1]
@@ -114,8 +114,8 @@ def GetIJS_rx0(MSK, DEP, r):
 
     print('Inequalities for dh(iEta,iXi) and dh(iEta,iXi+1)')
 
-    for iEta in range(eta_rho):
-        for iXi in range(xi_rho):
+    for iEta in list(range(eta_rho)):
+        for iXi in list(range(xi_rho)):
             if (MSK[iEta,iXi] == 1):
                 idx = ListCoord[iEta,iXi]
 
@@ -165,16 +165,16 @@ def GetIJS_maxamp(MSK, DEP, AmpConst):
 
     nbVert = 0
     ListCoord = np.zeros((eta_rho, xi_rho))
-    for iEta in range(eta_rho):
-       for iXi in range(xi_rho):
+    for iEta in list(range(eta_rho)):
+       for iXi in list(range(xi_rho)):
            if (MSK[iEta,iXi] == 1):
                nbVert = nbVert + 1
                ListCoord[iEta,iXi] = nbVert
 
     TotalNbConstant = 0
     TotalNbEntry = 0
-    for iEta in range(eta_rho):
-       for iXi in range(xi_rho):
+    for iEta in list(range(eta_rho)):
+       for iXi in list(range(xi_rho)):
            if (MSK[iEta,iXi] == 1):
                 alpha = AmpConst[iEta,iXi]
                 if (alpha < 9999):
@@ -188,8 +188,8 @@ def GetIJS_maxamp(MSK, DEP, AmpConst):
     jList = np.zeros((TotalNbEntry,1))
     sList = np.zeros((TotalNbEntry,1))
 
-    for iEta in range(eta_rho):
-       for iXi in range(xi_rho):
+    for iEta in list(range(eta_rho)):
+       for iXi in list(range(xi_rho)):
            if (MSK[iEta,iXi] == 1):
                 idx = ListCoord[iEta,iXi]
                 alpha = AmpConst[iEta,iXi]
@@ -231,16 +231,16 @@ def GetIJS_signs(MSK, SignConst):
 
     nbVert = 0
     ListCoord = np.zeros((eta_rho, xi_rho))
-    for iEta in range(eta_rho):
-       for iXi in range(xi_rho):
+    for iEta in list(range(eta_rho)):
+       for iXi in list(range(xi_rho)):
            if (MSK[iEta,iXi] == 1):
                nbVert = nbVert + 1
                ListCoord[iEta,iXi] = nbVert
 
     TotalNbConstant = 0
     TotalNbEntry = 0
-    for iEta in range(eta_rho):
-       for iXi in range(xi_rho):
+    for iEta in list(range(eta_rho)):
+       for iXi in list(range(xi_rho)):
            if (MSK[iEta,iXi] == 1 and SignConst[iEta,iXi] != 0):
                 TotalNbConstant = TotalNbConstant + 1
                 TotalNbEntry = TotalNbEntry + 1
@@ -253,8 +253,8 @@ def GetIJS_signs(MSK, SignConst):
     sList = np.zeros((TotalNbEntry,1))
 
 
-    for iEta in range(eta_rho):
-       for iXi in range(xi_rho):
+    for iEta in list(range(eta_rho)):
+       for iXi in list(range(xi_rho)):
            if (MSK[iEta,iXi] == 1 and SignConst[iEta,iXi] != 0):
                idx = ListCoord[iEta,iXi]
 
@@ -301,18 +301,18 @@ def MergeIJS_listings(iList1, jList1, sList1, Constant1, iList2, jList2, sList2,
     jList = np.zeros((nbEnt1+nbEnt2,1))
     sList = np.zeros((nbEnt1+nbEnt2,1))
 
-    for iCons in range(nbConst1):
+    for iCons in list(range(nbConst1)):
         Constant[iCons,0] = Constant1[iCons,0]
 
-    for iCons in range(nbConst2):
+    for iCons in list(range(nbConst2)):
         Constant[nbConst1+iCons,0] = Constant2[iCons,0]
 
-    for iEnt in range(nbEnt1):
+    for iEnt in list(range(nbEnt1)):
         iList[iEnt,0] = iList1[iEnt,0]
         jList[iEnt,0] = jList1[iEnt,0]
         sList[iEnt,0] = sList1[iEnt,0]
 
-    for iEnt in range(nbEnt2):
+    for iEnt in list(range(nbEnt2)):
         iList[nbEnt1+iEnt,0] = nbConst1 + iList2[iEnt,0]
         jList[nbEnt1+iEnt,0] = jList2[iEnt,0]
         sList[nbEnt1+iEnt,0] = sList2[iEnt,0]
@@ -352,13 +352,13 @@ def Neighborhood(MSK, iEta, iXi, Kdist):
                           [-1, 0],
                           [0, -1]])
 
-    for iK in range(1,Kdist+1):
+    for iK in list(range(1,Kdist+1)):
         nbPtOld = nbPt
-        for iPt in range(nbPtOld):
+        for iPt in list(range(nbPtOld)):
             if (ListStatus[iPt,0] == iK-1):
                 iEta = ListNeigh[iPt,0]
                 iXi = ListNeigh[iPt,1]
-                for ineigh in range(4):
+                for ineigh in list(range(4)):
                     iEtaN = iEta + List4dir[ineigh,0]
                     iXiN = iXi + List4dir[ineigh,1]
                     if (iEtaN <= eta_rho-1 and iEtaN >= 0 and iXiN <= xi_rho-1 \
@@ -389,7 +389,7 @@ def ConnectedComponent(ListEdges, nbVert):
     ListDegree = np.zeros((nbVert,1), dtype=np.int)
     ListAdjacency = np.zeros((nbVert,10000), dtype=np.int)
 
-    for iEdge in range(nbEdge):
+    for iEdge in list(range(nbEdge)):
         eVert = ListEdges[iEdge,0]
         fVert = ListEdges[iEdge,1]
         eDeg = ListDegree[eVert,0] + 1
@@ -421,9 +421,9 @@ def ConnectedComponent(ListEdges, nbVert):
             H = np.where(ListHot == 1)
             ListNotDone[H] = 0
             ListNewHot = np.zeros((nbVert,1))
-            for iH in range(np.size(H, 1)):
+            for iH in list(range(np.size(H, 1))):
                 eVert = H[0][iH]
-                for iV in range(ListDegree[eVert, 0]):
+                for iV in list(range(ListDegree[eVert, 0])):
                     ListNewHot[ListAdjacency[eVert, iV],0] = 1
 
             ListHot = ListNotDone * ListNewHot

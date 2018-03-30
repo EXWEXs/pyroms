@@ -38,10 +38,10 @@ def smoothing_Positive_rx0(MSK, Hobs, rx0max):
 
     while(True):
         IsFinished = 1
-        for iEta in range(eta_rho):
-            for iXi in range(xi_rho):
+        for iEta in list(range(eta_rho)):
+            for iXi in list(range(xi_rho)):
                 if (MSK[iEta,iXi] == 1):
-                    for ineigh in range(4):
+                    for ineigh in list(range(4)):
                         iEtaN = iEta + ListNeigh[ineigh,0]
                         iXiN = iXi + ListNeigh[ineigh,1]
                         if (iEtaN <= eta_rho-1 and iEtaN >= 0 and iXiN <= xi_rho-1 \
@@ -91,10 +91,10 @@ def smoothing_Negative_rx0(MSK, Hobs, rx0max):
 
     while(True):
         IsFinished = 1
-        for iEta in range(eta_rho):
-            for iXi in range(xi_rho):
+        for iEta in list(range(eta_rho)):
+            for iXi in list(range(xi_rho)):
                 if (MSK[iEta, iXi] == 1):
-                    for ineigh in range(4):
+                    for ineigh in list(range(4)):
                         iEtaN = iEta + ListNeigh[ineigh,0]
                         iXiN = iXi + ListNeigh[ineigh,1]
                         if (iEtaN <= eta_rho-1 and iEtaN >= 0 and iXiN <= xi_rho-1 \
@@ -147,10 +147,10 @@ def smoothing_PositiveVolume_rx0(MSK, Hobs, rx0max, AreaMatrix):
 
     while(True):
         IsFinished = 1
-        for iEta in range(eta_rho):
-            for iXi in range(xi_rho):
+        for iEta in list(range(eta_rho)):
+            for iXi in list(range(xi_rho)):
                 if (MSK[iEta, iXi] == 1):
-                    for ineigh in range(4):
+                    for ineigh in list(range(4)):
                         iEtaN = iEta + ListNeigh[ineigh,0]
                         iXiN = iXi + ListNeigh[ineigh,1]
                         if (iEtaN <= eta_rho-1 and iEtaN >= 0 and iXiN <= xi_rho-1 \
@@ -168,8 +168,8 @@ def smoothing_PositiveVolume_rx0(MSK, Hobs, rx0max, AreaMatrix):
 
     VolOrig=0
     VolWork=0
-    for iEta in range(eta_rho):
-        for iXi in range(xi_rho):
+    for iEta in list(range(eta_rho)):
+        for iXi in list(range(xi_rho)):
             if (MSK[iEta, iXi] == 1):
                 VolOrig = VolOrig + AreaMatrix[iEta,iXi] * Hobs[iEta,iXi]
                 VolWork = VolWork + AreaMatrix[iEta,iXi] * WorkBathy[iEta,iXi]
@@ -213,10 +213,10 @@ def smoothing_NegativeVolume_rx0(MSK, Hobs, rx0maxi, AreaMatrix):
 
     while(True):
         IsFinished = 1
-        for iEta in range(eta_rho):
-            for iXi in range(xi_rho):
+        for iEta in list(range(eta_rho)):
+            for iXi in list(range(xi_rho)):
                 if (MSK[iEta, iXi] == 1):
-                    for ineigh in range(4):
+                    for ineigh in list(range(4)):
                         iEtaN = iEta + ListNeigh[ineigh,0]
                         iXiN = iXi + ListNeigh[ineigh,1]
                         if (iEtaN <= eta_rho-1 and iEtaN >= 0 and iXiN <= xi_rho-1 \
@@ -234,8 +234,8 @@ def smoothing_NegativeVolume_rx0(MSK, Hobs, rx0maxi, AreaMatrix):
 
     VolOrig=0
     VolWork=0
-    for iEta in range(eta_rho):
-        for iXi in range(xi_rho):
+    for iEta in list(range(eta_rho)):
+        for iXi in list(range(xi_rho)):
             if (MSK[iEta, iXi] == 1):
                 VolOrig = VolOrig + AreaMatrix[iEta,iXi] * Hobs[iEta,iXi]
                 VolWork = VolWork + AreaMatrix[iEta,iXi] * WorkBathy[iEta,iXi]
@@ -280,11 +280,11 @@ def smoothing_PlusMinus_rx0(MSK, Hobs, rx0max, AreaMatrix):
 
     while(True):
         IsFinished = 1
-        for iEta in range(eta_rho):
-            for iXi in range(xi_rho):
+        for iEta in list(range(eta_rho)):
+            for iXi in list(range(xi_rho)):
                 if (MSK[iEta, iXi] == 1):
                     Area = AreaMatrix[iEta, iXi]
-                    for ineigh in range(4):
+                    for ineigh in list(range(4)):
                         iEtaN = iEta + ListNeigh[ineigh,0]
                         iXiN = iXi + ListNeigh[ineigh,1]
                         if (iEtaN <= eta_rho-1 and iEtaN >= 0 and iXiN <= xi_rho-1 \
@@ -340,10 +340,10 @@ def smoothing_Laplacian_rx0(MSK, Hobs, rx0max):
 
     tol = 0.00001
     WeightMatrix = np.zeros((eta_rho, xi_rho))
-    for iEta in range(eta_rho):
-        for iXi in range(xi_rho):
+    for iEta in list(range(eta_rho)):
+        for iXi in list(range(xi_rho)):
             WeightSum = 0
-            for ineigh in range(4):
+            for ineigh in list(range(4)):
                 iEtaN = iEta + ListNeigh[ineigh,0]
                 iXiN = iXi + ListNeigh[ineigh,1]
                 if (iEtaN <= eta_rho-1 and iEtaN >= 0 and iXiN <= xi_rho-1 \
@@ -363,11 +363,11 @@ def smoothing_Laplacian_rx0(MSK, Hobs, rx0max):
         IsFinished = 1
         nbPointMod = 0
         AdditionalDone = np.zeros((eta_rho, xi_rho))
-        for iEta in range(eta_rho):
-            for iXi in range(xi_rho):
+        for iEta in list(range(eta_rho)):
+            for iXi in list(range(xi_rho)):
                 Weight = 0
                 WeightSum = 0
-                for ineigh in range(4):
+                for ineigh in list(range(4)):
                     iEtaN = iEta + ListNeigh[ineigh,0]
                     iXiN = iXi + ListNeigh[ineigh,1]
                     if (iEtaN <= eta_rho-1 and iEtaN >= 0 and iXiN <= xi_rho-1 \

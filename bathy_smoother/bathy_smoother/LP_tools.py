@@ -36,7 +36,7 @@ def WriteLinearProgram(FileName, iList, jList, sList, Constant, ObjectiveFct):
     # we introduce an additional variable ad(e) satisfying +/- dh(e) <= ad(e)
     # and we minimize sum_e(ad(e))
     f.write('min: ')
-    for iVar in range(nbVar):
+    for iVar in list(range(nbVar)):
         eVal = ObjectiveFct[iVar,0]
         if (eVal != 0):
             if (eVal > 0):
@@ -55,7 +55,7 @@ def WriteLinearProgram(FileName, iList, jList, sList, Constant, ObjectiveFct):
 
     #write the inequality constraintes
     tolCrit = 1e-6
-    for iConst in range(nbConst):
+    for iConst in list(range(nbConst)):
         H = np.where(iList == iConst+1)[0]
         nbH = H.shape[0]
         if (nbH == 0):
@@ -66,7 +66,7 @@ def WriteLinearProgram(FileName, iList, jList, sList, Constant, ObjectiveFct):
         else:
             string = 'row%s: ' %str(iConst+1)
             f.write(string)
-            for iH in range(nbH):
+            for iH in list(range(nbH)):
                 jL = jList[H[iH],0]
                 sL = sList[H[iH],0]
                 string = '%.2f X%d ' %(sL, jL)
@@ -85,7 +85,7 @@ def WriteLinearProgram(FileName, iList, jList, sList, Constant, ObjectiveFct):
 
     # the free command does not seem to work as advertised
     f.write('free')
-    for iVar in range(nbVar):
+    for iVar in list(range(nbVar)):
         if (iVar+1 > 1):
             f.write(',')
 

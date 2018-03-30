@@ -56,7 +56,7 @@ def LP_smoothing_rx0(MSK, Hobs, rx0max, SignConst, AmpConst):
     TotalNbVert = int(MSK.sum())
 
     ObjectiveFct = np.zeros((2*TotalNbVert,1))
-    for iVert in range(TotalNbVert):
+    for iVert in list(range(TotalNbVert)):
         ObjectiveFct[TotalNbVert+iVert,0] = 1
 
     ValueFct, ValueVar, testfeasibility = LP_tools.SolveLinearProgram(iList, jList, sList, Constant, ObjectiveFct)
@@ -66,8 +66,8 @@ def LP_smoothing_rx0(MSK, Hobs, rx0max, SignConst, AmpConst):
 
     correctionBathy = np.zeros((eta_rho,xi_rho))
     nbVert = 0
-    for iEta in range(eta_rho):
-        for iXi in range(xi_rho):
+    for iEta in list(range(eta_rho)):
+        for iXi in list(range(xi_rho)):
             if (MSK[iEta,iXi] == 1):
                 correctionBathy[iEta,iXi] = ValueVar[nbVert]
                 nbVert = nbVert + 1
@@ -128,11 +128,11 @@ def LP_smoothing_rx0_heuristic(MSK, Hobs, rx0max, SignConst, AmpConst):
 
     ListEdges = []
     nbEdge = 0
-    for iK in range(nbKbad):
+    for iK in list(range(nbKbad)):
         iEta, iXi = Kbad[0][iK], Kbad[1][iK]
         ListNeigh = LP_bathy_tools.Neighborhood(MSK, iEta, iXi, 2*Kdist+1)
         nbNeigh = np.size(ListNeigh, 0)
-        for iNeigh in range(nbNeigh):
+        for iNeigh in list(range(nbNeigh)):
             iEtaN, iXiN = ListNeigh[iNeigh]
             if (MSKbad[iEtaN,iXiN] == 1):
                 idx = ListIdx[iEtaN,iXiN]
@@ -145,19 +145,19 @@ def LP_smoothing_rx0_heuristic(MSK, Hobs, rx0max, SignConst, AmpConst):
     nbColor = ListVertexStatus.max()
 
     NewBathy = Hobs.copy()
-    for iColor in range(1,nbColor+1):
+    for iColor in list(range(1,nbColor+1)):
         print('---------------------------------------------------------------')
         MSKcolor = np.zeros((eta_rho, xi_rho))
         K = np.where(ListVertexStatus == iColor)
         nbK = np.size(K,1)
         print('iColor = ', iColor, '  nbK = ', nbK)
-        for iVertex in range(nbKbad):
+        for iVertex in list(range(nbKbad)):
             if (ListVertexStatus[iVertex,0] == iColor):
                 iEta, iXi = Kbad[0][iVertex], Kbad[1][iVertex]
                 MSKcolor[iEta, iXi] = 1
                 ListNeigh = LP_bathy_tools.Neighborhood(MSK, iEta, iXi, Kdist)
                 nbNeigh = np.size(ListNeigh, 0)
-                for iNeigh in range(nbNeigh):
+                for iNeigh in list(range(nbNeigh)):
                     iEtaN, iXiN = ListNeigh[iNeigh]
                     MSKcolor[iEtaN,iXiN] = 1
         K = np.where(MSKcolor == 1)
