@@ -445,5 +445,5 @@ class z_coordinate(object):
             Sm = h.shape[0]
             self.z = np.zeros((N, Sm))
 
-        for k in list(gange(N)):
+        for k in range(N):
             self.z[k,:] = depth[k]
