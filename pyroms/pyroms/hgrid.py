@@ -1119,7 +1119,7 @@ class Gridgen(CGrid):
         self.xbry = np.asarray(xbry, dtype='d')
         self.ybry = np.asarray(ybry, dtype='d')
         self.beta = np.asarray(beta, dtype='d')
-        assert self.beta.sum() == 4.0, 'sum of beta must be 4.0'
+        assert self.beta.sum() == 4.0, str('sum of beta must be 4.0 and not '+self.beta.sum())
         self.shape = shape
         self.ny = shape[0]
         self.nx = shape[1]

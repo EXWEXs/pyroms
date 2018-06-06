@@ -31,8 +31,10 @@ def get_nc_Grid_HYCOM(grdfile, name='GLBa0.08_NEP'):
 
     mask_t = np.array(~var[:].mask, dtype='int')
 
+    dms0=depth.mask.shape
     z_t = np.tile(depth,(mask_t.shape[2],mask_t.shape[1],1)).T
-
+    if depth.mask.shape != dms0: #fixing a bug from numpy.tile # 2018-05-16
+       depth.mask=np.squeeze(depth.mask)
     depth_bnds = np.zeros(len(depth)+1)
     for i in range(1,len(depth)):
         depth_bnds[i] = 0.5 * (depth[i-1] + depth[i])

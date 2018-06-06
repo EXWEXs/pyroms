@@ -32,7 +32,6 @@ def flood_fast(varz, grd, pos='t', irange=None, jrange=None, \
     varz = np.array(varz)
 
     assert len(varz.shape) == 3, 'var must be 3D'
-
     # replace spval by nan
     idx = np.where(abs((varz-spval)/spval)<=1e-5)
     varz[idx] = np.nan
@@ -42,20 +41,28 @@ def flood_fast(varz, grd, pos='t', irange=None, jrange=None, \
     h = grd.h
     if pos is 't':
         mask = grd.mask_t[0,:,:]
-
     nlev, Mm, Lm = varz.shape
 
     if irange is None:
         irange = (0,Lm)
     else:
+        print("varz.shape[2] ("+varz.shape[2]+") != irange[1]-irange[0] ("+irange[1]-irange[0]+")")
         assert varz.shape[2] == irange[1]-irange[0], \
                'var shape and irange must agreed'
 
     if jrange is None:
         jrange = (0,Mm)
     else:
-        assert varz.shape[1] == jrange[1]-jrange[0], \
+       print("varz.shape[1] ("+varz.shape[1]+") != jrange[1]-jrange[0] ("+jrange[1]-jrange[0]+")")    
+       assert varz.shape[1] == jrange[1]-jrange[0], \
                'var shape and jrange must agreed'
+
+    #MOMODIF
+    assert mask.shape[0] >= jrange[1]-jrange[0], \
+               'mask shape and jrange must agreed'
+    assert mask.shape[1] >= irange[1]-irange[0], \
+               'mask shape and irange must agreed'
+    #/MOMODIF
 
     x = x[jrange[0]:jrange[1], irange[0]:irange[1]]
     y = y[jrange[0]:jrange[1], irange[0]:irange[1]]
@@ -75,9 +82,12 @@ def flood_fast(varz, grd, pos='t', irange=None, jrange=None, \
         c1 = np.array(msk, dtype=bool)
         c2 = np.isnan(varz[k,:,:]) == 1
         if kk == 0:
-            c3 = np.ones(mask.shape).astype(bool)
+           c3 = np.ones(mask.shape).astype(bool)
         else:
             c3 = np.isnan(varz[max(k-kk,0),:,:]) == 0
+        print("C1 size : "+str(np.shape(c1)))
+        print("C2 size : "+str(np.shape(c2)))
+        print("C3 size : "+str(np.shape(c3)))
         c = c1 & c2 & c3
         idxnan = np.where(c == True)
         idx = np.where(c2 == False)

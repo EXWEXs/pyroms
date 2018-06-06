@@ -764,8 +764,8 @@
       !*** routine from computing bilinear weights
       !***
 
-      !print *,'Could not find location for ',plat,plon
-      !print *,'Using nearest-neighbor average for this point'
+      print *,'Could not find location for ',plat,plon
+      print *,'Using nearest-neighbor average for this point'
 
       coslat_dst = cos(plat)
       sinlat_dst = sin(plat)

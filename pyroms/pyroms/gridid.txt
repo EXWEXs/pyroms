@@ -141,3 +141,47 @@ Vtrans  = 1
 theta_s = 5
 theta_b = 0.4
 Tcline  = 10
+#
+#
+id = ARCTIC2
+name = ARCTIC2
+grdfile = /home/mdessert/pyroms/mytools/arctic_test_grid.nc
+N = 50
+grdtype = roms
+Vtrans = 4
+theta_s = 7
+theta_b = 2
+Tcline = 250
+#
+#
+id      = CARETTA2
+name    = CARETTA2
+grdfile = /home/mdessert/pyroms/mytools/caretta2_grid.nc
+N       = 32
+grdtype = roms
+Vtrans  = 4
+theta_s = 6
+theta_b = 0
+Tcline  = 10.0
+#
+#
+id      = CARETTA
+name    = CARETTA
+grdfile = /home/mdessert/pyroms/mytools/caretta_grid.nc
+N       = 80
+grdtype = roms
+Vtrans  = 4
+theta_s = 3
+theta_b = 2
+Tcline  = 50
+#
+#
+id      = PALAU
+name    = PALAU
+grdfile = /home/mdessert/pyroms/mytools/palau_grid.nc
+N       = 70
+grdtype = roms
+Vtrans  = 4
+theta_s = 7
+theta_b = 2
+Tcline  = 250
