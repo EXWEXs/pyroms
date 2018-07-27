@@ -937,10 +937,10 @@ def lonslice(var, longitude, grd, Cpos='rho', vert=False, spval=1e37):
                            lon[1:-1,-2], \
                            lon[-2,-2:0:-1], \
                            lon[-2:0:-1,1]))
-    idx =  np.concatenate((list(range(1,lon[0,:].shape[0]-1)), \
-                           list(range(1,lon[:,-1].shape[0]-1)), \
-                           list(range(1,lon[-1,::-1].shape[0]-1))[::-1], \
-                           list(range(1,lon[::-1,0].shape[0]-1))[::-1]))
+    idx =  np.concatenate((range(1,lon[0,:].shape[0]-1), \
+                           range(1,lon[:,-1].shape[0]-1), \
+                           range(1,lon[-1,::-1].shape[0]-1)[::-1], \
+                           range(1,lon[::-1,0].shape[0]-1)[::-1]))
 
     d = np.zeros(edge.shape)
     for i in range (edge.shape[0]):
@@ -1040,10 +1040,10 @@ def latslice(var, latitude, grd, Cpos='rho', vert=False, spval=1e37):
                            lat[1:-1,-2], \
                            lat[-2,-2:0:-1], \
                            lat[-2:0:-1,1]))
-    idx =  np.concatenate((list(range(1,lat[0,:].shape[0]-1)), \
-                           list(range(1,lat[:,-1].shape[0]-1)), \
-                           list(range(1,lat[-1,::-1].shape[0]-1))[::-1], \
-                           list(range(1,lat[::-1,0].shape[0]-1))[::-1]))
+    idx =  np.concatenate((range(1,lat[0,:].shape[0]-1), \
+                           range(1,lat[:,-1].shape[0]-1), \
+                           range(1,lat[-1,::-1].shape[0]-1)[::-1], \
+                           range(1,lat[::-1,0].shape[0]-1)[::-1]))
 
     d = np.zeros(edge.shape)
     for i in range (edge.shape[0]):

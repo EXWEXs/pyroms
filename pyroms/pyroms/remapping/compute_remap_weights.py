@@ -36,9 +36,7 @@ def compute_remap_weights(grid1_file, grid2_file, \
     f.write('/\n')
 
     f.close()
-
     # compute weights
     pyroms.remapping.scrip.compute_remap_weights('compute_remap_weights_in')
-
     # clean
-    os.remove('compute_remap_weights_in') 
+    #os.remove('compute_remap_weights_in') 

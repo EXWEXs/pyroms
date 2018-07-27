@@ -546,10 +546,10 @@ def write_ROMS_grid(grd, filename='roms_grd.nc'):
         write_nc_var(grd.vgrid.s_w, 's_w', ('s_w'), 'S-coordinate at W-points')
         write_nc_var(grd.vgrid.Cs_r, 'Cs_r', ('s_rho'), 'S-coordinate stretching curves at RHO-points')
         write_nc_var(grd.vgrid.Cs_w, 'Cs_w', ('s_w'), 'S-coordinate stretching curves at W-points')
-
+ 
     write_nc_var(grd.vgrid.h, 'h', ('eta_rho', 'xi_rho'), 'bathymetry at RHO-points', 'meter')
     #ensure that we have a bath dependancy for hraw
-    if len(grd.vgrid.hraw.shape) == 2:
+    if len(np.shape(grd.vgrid.hraw))==2 : 
         hraw = np.zeros((1, grd.vgrid.hraw.shape[0], grd.vgrid.hraw.shape[1]))
         hraw[0,:] = grd.vgrid.hraw
     else:

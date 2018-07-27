@@ -167,9 +167,9 @@
       end select
 
       call date_and_time(date=cdate)
-      write (history,1000) cdate(5:6),cdate(7:8),cdate(1:4)
+      write (history,1000) cdate(5:6),cdate(7:8),cdate(1:4) ! format
+      !mm-dd-yyyy
  1000 format('Created: ',a2,'-',a2,'-',a4)
-
 !-----------------------------------------------------------------------
 !
 !     sort address and weight arrays
@@ -292,6 +292,8 @@
       !***
       ncstat = nf_put_att_text (nc_file_id, NF_GLOBAL, 'history',
      &                          len_trim(history), history)
+      write(stdout,*) " ---- HISTORY ------ ",history
+
       call netcdf_error_handler(ncstat)
 
       !***

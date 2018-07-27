@@ -1119,7 +1119,7 @@ class Gridgen(CGrid):
         self.xbry = np.asarray(xbry, dtype='d')
         self.ybry = np.asarray(ybry, dtype='d')
         self.beta = np.asarray(beta, dtype='d')
-        assert self.beta.sum() == 4.0, 'sum of beta must be 4.0'
+        assert self.beta.sum() == 4.0, str('sum of beta must be 4.0 and not '+self.beta.sum())
         self.shape = shape
         self.ny = shape[0]
         self.nx = shape[1]
@@ -1376,25 +1376,25 @@ class edit_mask_mesh_ij(object):
 
         if type(grd).__name__ == 'ROMS_Grid':
             try:
-                x = list(range(grd.hgrid.lon_vert.shape[1]))
-                y = list(range(grd.hgrid.lat_vert.shape[0]))
+                x = range(grd.hgrid.lon_vert.shape[1])
+                y = range(grd.hgrid.lat_vert.shape[0])
                 xv, yv = np.meshgrid(x,y)
                 mask = grd.hgrid.mask_rho
             except:
-                x = list(range(grd.hgrid.x_vert.shape[1]))
-                y = list(range(grd.hgrid.y_vert.shape[0]))
+                x = range(grd.hgrid.x_vert.shape[1])
+                y = range(grd.hgrid.y_vert.shape[0])
                 xv, yv = np.meshgrid(x,y)
                 mask = grd.hgrid.mask_rho
 
         if type(grd).__name__ == 'CGrid_geo':
             try:
-                x = list(range(grd.lon_vert.shape[1]))
-                y = list(range(grd.lat_vert.shape[0]))
+                x = range(grd.lon_vert.shape[1])
+                y = range(grd.lat_vert.shape[0])
                 xv, yv = np.meshgrid(x,y)
                 mask = grd.mask_rho
             except:
-                x = list(range(grd.x_vert.shape[1]))
-                y = list(range(grd.y_vert.shape[0]))
+                x = range(grd.x_vert.shape[1])
+                y = range(grd.y_vert.shape[0])
                 xv, yv = np.meshgrid(x,y)
                 mask = grd.mask_rho
 

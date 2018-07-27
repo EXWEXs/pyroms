@@ -27,9 +27,7 @@ def z2roms(varz, grdz, grd, Cpos='rho', irange=None, jrange=None, \
 
     Interpolate the variable from z vertical grid grdz to ROMS grid grd
     """
-
     varz = varz.copy()
-
     assert len(varz.shape) == 3, 'var must be 3D'
 
     if mode=='linear':

@@ -7,10 +7,13 @@ import matplotlib.colors as colors
 from scipy.signal import medfilt2d
 import netCDF4
 
+import sys
+
 import pyroms
 import pyroms_toolbox
 from bathy_smoother import *
 
+import numpy as np
 
 #Grid dimension
 Lp = 150
@@ -44,10 +47,10 @@ map = Basemap(projection='merc', llcrnrlon=lon_min, llcrnrlat=lat_min, \
          resolution='i')
 
 #generate the new grid
-lonp=array([lon0, lon1, lon2, lon3])
-latp=array([lat0, lat1, lat2, lat3])
+lonp=np.array([lon0, lon1, lon2, lon3])
+latp=np.array([lat0, lat1, lat2, lat3])
 
-beta = array([1, 1, 1, 1])
+beta = np.array([1, 1, 1, 1])
 
 hgrd = pyroms.grid.Gridgen(lonp, latp, beta, (Mp+3,Lp+3), proj=map)
 
@@ -103,8 +106,8 @@ hmin = 5
 topo = pyroms_toolbox.change(topo, '<', hmin, hmin)
 
 # interpolate new bathymetry
-lon, lat = meshgrid(lons, lats)
-h = griddata(lon.flat,lat.flat,topo.flat,hgrd.lon_rho,hgrd.lat_rho)
+lon, lat = np.meshgrid(lons, lats)
+h = griddata((lon.flat,lat.flat),topo.flat,(hgrd.lon_rho,hgrd.lat_rho))
 
 # insure that depth is always deeper than hmin
 h = pyroms_toolbox.change(h, '<', hmin, hmin)

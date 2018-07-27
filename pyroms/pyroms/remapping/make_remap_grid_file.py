@@ -170,3 +170,4 @@ def make_remap_grid_file(grid, Cpos='rho', irange=None, jrange=None):
     nc.variables['grid_corner_lat'][:] = grid_corner_lat
 
     nc.close()
+    print('remap_grid_' + grd.name + '_' + Cpos + '.nc was created \n')
