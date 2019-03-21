@@ -99,7 +99,7 @@ class ocean_in:
         fh = open(fname)
         for line in fh:
             # Handle blank lines and lines starting with !
-            line = line.rstrip()
+            line = line.strip()
             if len(line) == 0 or line[0] == '!':
                 line_list = Line(line)
                 self.var_list.append(line_list)
