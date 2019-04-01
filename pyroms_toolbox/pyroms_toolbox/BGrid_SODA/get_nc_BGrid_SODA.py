@@ -43,6 +43,7 @@ def get_nc_BGrid_SODA(grdfile, name='SODA_2.1.6_CORAL', area='regional', \
         for j in range(mask_t[0,:].shape[0]):
             if mask_t[0,j,i] == 1:
                 h[j,i] = depth_bnds[int(bottom[j,i])]
+
     if area == 'global':
         #add one row in the north and the south
         lon_t = lon_t[np.r_[0,:len(lon_t),-1]]

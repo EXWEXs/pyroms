@@ -18,8 +18,9 @@ class nctime(object):
 
 def remap_bio(argdict, src_grd, dst_grd, dmax=0, cdepth=0, kk=0, dst_dir='./'):
 
-    # NWGOA3 grid sub-sample
-    xrange=src_grd.xrange; yrange=src_grd.yrange
+    # ARCTIC4 grid sub-sample
+#   xrange=src_grd.xrange; yrange=src_grd.yrange
+    ystart = 150
 
     src_varname = argdict['tracer']
     tracer = src_varname
@@ -58,19 +59,30 @@ def remap_bio(argdict, src_grd, dst_grd, dmax=0, cdepth=0, kk=0, dst_dir='./'):
 
     # determine variable dimension
     ndim = len(src_var.dimensions) - 1
+    print('ndim', ndim, src_var.dimensions)
 
-    # NWGOA3 grid sub-sample
+    # ARCTIC4 grid sub-sample
     if ndim == 3:
-        src_var = src_var[nframe,:, yrange[0]:yrange[1]+1, xrange[0]:xrange[1]+1]
+#       src_var = src_var[nframe,:, yrange[0]:yrange[1]+1, xrange[0]:xrange[1]+1]
+        src_var = src_var[nframe,:,:,:]
+        print('subgrid 3d', src_var.shape)
+#       src_var = np.squeeze(src_var, axis=(0,))
+        src_var = src_var[:,np.r_[ystart:np.size(src_var,1),-1],:]
+        print('subgrid 3d', src_var.shape)
     elif ndim == 2:
-        src_var = src_var[nframe,yrange[0]:yrange[1]+1, xrange[0]:xrange[1]+1]
+#       src_var = src_var[nframe,yrange[0]:yrange[1]+1, xrange[0]:xrange[1]+1]
+        src_var = src_var[nframe,:,:]
+        print('subgrid 2d', src_var.shape)
+#       src_var = np.squeeze(src_var, axis=(0,))
+        src_var = src_var[np.r_[ystart:np.size(src_var,0),-1],:]
+        print('subgrid 2d', src_var.shape)
 
 
     Bpos = 't'
     Cpos = 'rho'
     z = src_grd.z_t
     Mp, Lp = dst_grd.hgrid.mask_rho.shape
-    wts_file = 'remap_weights_ESM2M_to_NWGOA3_bilinear_t_to_rho.nc'
+    wts_file = 'remap_weights_ESM2M_to_ARCTIC4_bilinear_t_to_rho.nc'
     dst_varname = tracer
     dimensions = ('ocean_time', 's_rho', 'eta_rho', 'xi_rho')
     long_name = longname

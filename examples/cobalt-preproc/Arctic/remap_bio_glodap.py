@@ -16,10 +16,11 @@ import _remapping
 class nctime(object):
     pass
 
-def remap_bio(argdict, src_grd, dst_grd, dmax=0, cdepth=0, kk=0, dst_dir='./'):
+def remap_bio_glodap(argdict, src_grd, dst_grd, dmax=0, cdepth=0, kk=0, dst_dir='./'):
 
-    # NWGOA3 grid sub-sample
-    xrange=src_grd.xrange; yrange=src_grd.yrange
+    # ARCTIC4 grid sub-sample
+    ystart = 150
+#    xrange=src_grd.xrange; yrange=src_grd.yrange
 
     src_varname = argdict['tracer']
     tracer = src_varname
@@ -47,30 +48,54 @@ def remap_bio(argdict, src_grd, dst_grd, dmax=0, cdepth=0, kk=0, dst_dir='./'):
     cdf = netCDF.Dataset(src_file)
     src_var = cdf.variables[src_varname]
 
-    time = cdf.variables['time'][nframe]
+    tmp = cdf.variables['time'][nframe]
+    #if len(tmp) > 1:
+    #    print 'error : multiple frames in input file' ; exit()
+    #else:
+    #    time = tmp[0]
 
     # to be in sync with physics, add +0.5 day
     #time = time + 0.5
     # time will be given by physics anyway
+    time = 0.
 
     #get missing value
     spval = src_var._FillValue
 
+    spval2 = -1.0e+10
+
     # determine variable dimension
     ndim = len(src_var.dimensions) - 1
 
-    # NWGOA3 grid sub-sample
+    # ARCTIC4 grid sub-sample
     if ndim == 3:
-        src_var = src_var[nframe,:, yrange[0]:yrange[1]+1, xrange[0]:xrange[1]+1]
+#       src_var = src_var[nframe,:, yrange[0]:yrange[1]+1, xrange[0]:xrange[1]+1]
+        src_var = src_var[nframe, :, :, :]
+        print('subgrid 3d', src_var.shape)
+#       src_var = np.squeeze(src_var, axis=(0,))
+        src_var = src_var[:,np.r_[ystart:np.size(src_var,1),-1],:]
+        print('subgrid 3d', src_var.shape)
     elif ndim == 2:
-        src_var = src_var[nframe,yrange[0]:yrange[1]+1, xrange[0]:xrange[1]+1]
+#       src_var = src_var[nframe,yrange[0]:yrange[1]+1, xrange[0]:xrange[1]+1]
+        src_var = src_var[nframe, :, :]
+        print('subgrid 2d', src_var.shape)
+#       src_var = np.squeeze(src_var, axis=(0,))
+        src_var = src_var[np.r_[ystart:np.size(src_var,0),-1],:]
+        print('subgrid 2d', src_var.shape)
+
+    if tracer == 'alk':
+       unit_conversion = 1. / 1e6
+    elif tracer == 'dic':
+       unit_conversion = 1. / 1e6
+
+    src_var = src_var * unit_conversion
 
 
     Bpos = 't'
     Cpos = 'rho'
     z = src_grd.z_t
     Mp, Lp = dst_grd.hgrid.mask_rho.shape
-    wts_file = 'remap_weights_ESM2M_to_NWGOA3_bilinear_t_to_rho.nc'
+    wts_file = 'remap_weights_ESM2M_to_ARCTIC4_bilinear_t_to_rho.nc'
     dst_varname = tracer
     dimensions = ('ocean_time', 's_rho', 'eta_rho', 'xi_rho')
     long_name = longname
@@ -87,7 +112,7 @@ def remap_bio(argdict, src_grd, dst_grd, dmax=0, cdepth=0, kk=0, dst_dir='./'):
 
     # create variable in file
     print('Creating variable', dst_varname)
-    nc.createVariable(dst_varname, 'f8', dimensions, fill_value=spval)
+    nc.createVariable(dst_varname, 'f8', dimensions, fill_value=spval2)
     nc.variables[dst_varname].long_name = long_name
     nc.variables[dst_varname].units = units
     nc.variables[dst_varname].field = field
@@ -117,6 +142,12 @@ def remap_bio(argdict, src_grd, dst_grd, dmax=0, cdepth=0, kk=0, dst_dir='./'):
                           dst_grd, Cpos=Cpos, spval=spval, flood=False)
     else:
         dst_var = dst_varz
+
+    if ndim == 3:
+       for kz in np.arange(dst_grd.vgrid.N):
+           tmp = dst_var[kz,:,:].copy()
+           tmp[np.where(dst_grd.hgrid.mask_rho == 0)] = spval2
+           dst_var[kz,:,:] = tmp.copy()
 
     # write data in destination file
     print('write data in destination file\n')

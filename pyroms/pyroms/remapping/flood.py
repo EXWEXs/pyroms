@@ -12,7 +12,7 @@ def flood(varz, grdz, Cpos='rho', irange=None, jrange=None, \
 
     optional switch:
       - Cpos='rho', 'u' or 'v'	     specify the C-grid position where
-				     the variable rely
+                                     the variable rely
       - irange                       specify grid sub-sample for i direction
       - jrange                       specify grid sub-sample for j direction
       - spval=1e37                   define spval value
@@ -118,7 +118,7 @@ def flood(varz, grdz, Cpos='rho', irange=None, jrange=None, \
     for i in range(Lm):
         for j in range(Mm):
             if mask[j,i] == 1:
-                varz[:bottom[j,i],j,i] = varz[bottom[j,i],j,i]
-                varz[surface[j,i]:,j,i] = varz[surface[j,i],j,i]
+                varz[:int(bottom[j,i]),j,i] = varz[int(bottom[j,i]),j,i]
+                varz[int(surface[j,i]):,j,i] = varz[int(surface[j,i]),j,i]
 
     return varz

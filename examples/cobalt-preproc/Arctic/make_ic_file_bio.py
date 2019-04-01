@@ -11,13 +11,14 @@ import pyroms_toolbox
 from remap_bio import remap_bio
 
 #build list of date to remap
-tag = 'y1988-2007m01'
+tag = 'y1988-2007m04'
 
-data_dir = '/archive/u1/uaf/kate/COBALT/'
+data_dir = '/archive/AKWATERS/kshedstrom/COBALT/'
 dst_dir='./'
 
-src_grd = pyroms_toolbox.BGrid_GFDL.get_nc_BGrid_GFDL('/archive/u1/uaf/kate/COBALT/GFDL_CM2.1_grid.nc', name='ESM2M_NWGOA3')
-dst_grd = pyroms.grid.get_ROMS_grid('NWGOA3')
+src_grd = pyroms_toolbox.BGrid_GFDL.get_nc_BGrid_GFDL('/archive/AKWATERS/kshedstrom/COBALT/GFDL_CM2.1_grid.nc', \
+          name='ESM2M_ARCTIC4', area='tripole', ystart=150)
+dst_grd = pyroms.grid.get_ROMS_grid('ARCTIC4')
 
 # define all tracer stuff
 list_tracer = ['alk', 'cadet_arag', 'cadet_calc', 'dic', 'fed', 'fedet', 'fedi', 'felg', 'fesm', 'ldon', 'ldop', 'lith', 'lithdet', 'nbact', 'ndet', 'ndi', 'nlg', 'nsm', 'nh4', 'no3', 'o2', 'pdet', 'po4', 'srdon', 'srdop', 'sldon', 'sldop', 'sidet', 'silg', 'sio4', 'nsmz', 'nmdz', 'nlgz','cased','chl','irr_mem','htotal','co3_ion']
@@ -31,11 +32,11 @@ tracer_units = ['mol/kg', 'mol/kg', 'mol/kg', 'mol/kg', 'mol/kg', 'mol/kg', 'mol
 print('\nBuild IC file for time %s' %tag)
 for ktr in np.arange(len(list_tracer)):
     mydict = {'tracer':list_tracer[ktr],'longname':tracer_longname[ktr],'units':tracer_units[ktr], \
-        'file':data_dir + 'ocean_cobalt_tracers.1988-2007.01_12.nc', 'nframe':0}
+    'file':data_dir + 'ocean_cobalt_tracers.1988-2007.01_12.nc', 'nframe':3}
     remap_bio(mydict, src_grd, dst_grd, dst_dir=dst_dir)
 
 ## merge file
-ic_file = dst_dir + dst_grd.name + '_ic_bio_GFDL-JAN.nc'
+ic_file = dst_dir + dst_grd.name + '_ic_bio_GFDL-APR.nc'
 out_file = dst_dir + dst_grd.name + '_ic_bio_' + list_tracer[0] + '.nc'
 command = ('ncks', '-a', '-O', out_file, ic_file)
 subprocess.check_call(command)
