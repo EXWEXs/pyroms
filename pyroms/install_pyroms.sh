@@ -1,8 +1,8 @@
 #!/bin/sh
 
 #DESTDIR=/usr/local
-DESTDIR=$CONDA_PREFIX
-PYROMS_PATH=$DESTDIR/lib/python3.6/site-packages/pyroms
+DESTDIR=${CONDA_PREFIX}
+PYROMS_PATH=$DESTDIR/lib/python3.7/site-packages/pyroms
 CURDIR=`pwd`
 
 echo
